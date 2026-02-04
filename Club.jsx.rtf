@@ -1,0 +1,390 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red255\green255\blue254;\red0\green0\blue0;
+\red14\green110\blue109;\red144\green1\blue18;\red15\green112\blue1;\red19\green118\blue70;\red191\green28\blue37;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c100000;\cssrgb\c100000\c100000\c99608;\cssrgb\c0\c0\c0;
+\cssrgb\c0\c50196\c50196;\cssrgb\c63922\c8235\c8235;\cssrgb\c0\c50196\c0;\cssrgb\c3529\c52549\c34510;\cssrgb\c80392\c19216\c19216;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+import\cf0  \cf5 React\cf0  \cf2 from\cf0  \cf6 'react'\cf0 ;\cb1 \
+\cf2 \cb3 import\cf0  \{ motion \} \cf2 from\cf0  \cf6 'framer-motion'\cf0 ;\cb1 \
+\cf2 \cb3 import\cf0  \{ \cb1 \
+\cb3   \cf5 Target\cf0 , \cf5 Mountain\cf0 , \cf5 Users\cf0 , \cf5 Award\cf0 , \cf5 Heart\cf0 , \cf5 Shield\cf0 , \cb1 \
+\cb3   \cf5 Clock\cf0 , \cf5 MapPin\cf0 , \cf5 Phone\cf0 , \cf5 Mail\cf0 , \cf5 Calendar\cf0 , \cf5 ChevronRight\cf0 ,\cb1 \
+\cb3   \cf5 TreePine\cf0 , \cf5 Crosshair\cf0 , \cf5 Trophy\cf0 \cb1 \
+\cb3 \} \cf2 from\cf0  \cf6 'lucide-react'\cf0 ;\cb1 \
+\cf2 \cb3 import\cf0  \{ \cf5 Button\cf0  \} \cf2 from\cf0  \cf6 '@/components/ui/button'\cf0 ;\cb1 \
+\cf2 \cb3 import\cf0  \{ \cf5 Link\cf0  \} \cf2 from\cf0  \cf6 'react-router-dom'\cf0 ;\cb1 \
+\cf2 \cb3 import\cf0  \{ createPageUrl \} \cf2 from\cf0  \cf6 '@/utils'\cf0 ;\cb1 \
+\
+\cf2 \cb3 const\cf0  values = [\cb1 \
+\cb3   \{\cb1 \
+\cb3     icon: \cf5 Heart\cf0 ,\cb1 \
+\cb3     title: \cf6 'Passion'\cf0 ,\cb1 \
+\cb3     description: \cf6 'Le tir \'e0 l\\'arc est plus qu\\'un sport, c\\'est une passion que nous partageons avec enthousiasme.'\cf0 ,\cb1 \
+\cb3   \},\cb1 \
+\cb3   \{\cb1 \
+\cb3     icon: \cf5 Users\cf0 ,\cb1 \
+\cb3     title: \cf6 'Communaut\'e9'\cf0 ,\cb1 \
+\cb3     description: \cf6 'Un club o\'f9 chacun trouve sa place, du d\'e9butant au comp\'e9titeur confirm\'e9.'\cf0 ,\cb1 \
+\cb3   \},\cb1 \
+\cb3   \{\cb1 \
+\cb3     icon: \cf5 Shield\cf0 ,\cb1 \
+\cb3     title: \cf6 'Respect'\cf0 ,\cb1 \
+\cb3     description: \cf6 'Respect des r\'e8gles de s\'e9curit\'e9, de l\\'environnement et de chaque membre.'\cf0 ,\cb1 \
+\cb3   \},\cb1 \
+\cb3   \{\cb1 \
+\cb3     icon: \cf5 Trophy\cf0 ,\cb1 \
+\cb3     title: \cf6 'Excellence'\cf0 ,\cb1 \
+\cb3     description: \cf6 'Nous encourageons chacun \'e0 progresser et \'e0 atteindre ses objectifs personnels.'\cf0 ,\cb1 \
+\cb3   \},\cb1 \
+\cb3 ];\cb1 \
+\
+\cf2 \cb3 const\cf0  membershipTypes = [\cb1 \
+\cb3   \{\cb1 \
+\cb3     name: \cf6 'Junior'\cf0 ,\cb1 \
+\cb3     price: \cf6 '80'\cf0 ,\cb1 \
+\cb3     description: \cf6 'Moins de 18 ans'\cf0 ,\cb1 \
+\cb3     features: [\cf6 'Acc\'e8s aux entra\'eenements'\cf0 , \cf6 'Pr\'eat de mat\'e9riel'\cf0 , \cf6 'Cours d\'e9butants inclus'\cf0 ],\cb1 \
+\cb3   \},\cb1 \
+\cb3   \{\cb1 \
+\cb3     name: \cf6 'Standard'\cf0 ,\cb1 \
+\cb3     price: \cf6 '150'\cf0 ,\cb1 \
+\cb3     description: \cf6 'Adulte'\cf0 ,\cb1 \
+\cb3     features: [\cf6 'Acc\'e8s aux entra\'eenements'\cf0 , \cf6 'Acc\'e8s libre aux cr\'e9neaux'\cf0 , \cf6 'Participation aux comp\'e9titions'\cf0 , \cf6 'R\'e9ductions mat\'e9riel'\cf0 ],\cb1 \
+\cb3     popular: \cf2 true\cf0 ,\cb1 \
+\cb3   \},\cb1 \
+\cb3   \{\cb1 \
+\cb3     name: \cf6 'Senior'\cf0 ,\cb1 \
+\cb3     price: \cf6 '120'\cf0 ,\cb1 \
+\cb3     description: \cf6 'Plus de 65 ans'\cf0 ,\cb1 \
+\cb3     features: [\cf6 'Acc\'e8s aux entra\'eenements'\cf0 , \cf6 'Acc\'e8s libre aux cr\'e9neaux'\cf0 , \cf6 'Pr\'eat de mat\'e9riel'\cf0 ],\cb1 \
+\cb3   \},\cb1 \
+\cb3   \{\cb1 \
+\cb3     name: \cf6 'Famille'\cf0 ,\cb1 \
+\cb3     price: \cf6 '300'\cf0 ,\cb1 \
+\cb3     description: \cf6 'Famille (max 4 personnes)'\cf0 ,\cb1 \
+\cb3     features: [\cf6 'Tous les avantages Standard'\cf0 , \cf6 'Prix r\'e9duit par personne'\cf0 , \cf6 'Cours famille'\cf0 ],\cb1 \
+\cb3   \},\cb1 \
+\cb3 ];\cb1 \
+\
+\cf2 \cb3 export\cf0  \cf2 default\cf0  \cf2 function\cf0  \cf5 Club\cf0 () \{\cb1 \
+\cb3   \cf2 return\cf0  (\cb1 \
+\cb3     <div className=\cf6 "bg-black min-h-screen pt-20"\cf0 >\cb1 \
+\cb3       \{\cf7 /* Hero Section */\cf0 \}\cb1 \
+\cb3       <section className=\cf6 "relative py-24 overflow-hidden"\cf0 >\cb1 \
+\cb3         <div className=\cf6 "absolute inset-0"\cf0 >\cb1 \
+\cb3           <img \cb1 \
+\cb3             src=\cf6 "https://images.unsplash.com/photo-1533240332313-0db49b459ad6?w=1920&q=80"\cf0 \cb1 \
+\cb3             alt=\cf6 "Montagnes"\cf0 \cb1 \
+\cb3             className=\cf6 "w-full h-full object-cover opacity-30"\cf0 \cb1 \
+\cb3           />\cb1 \
+\cb3           <div className=\cf6 "absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black"\cf0  />\cb1 \
+\cb3         </div>\cb1 \
+\cb3         \cb1 \
+\cb3         <div className=\cf6 "relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 >\cb1 \
+\cb3           <motion.div\cb1 \
+\cb3             initial=\{\{ opacity: \cf8 0\cf0 , y: \cf8 30\cf0  \}\}\cb1 \
+\cb3             animate=\{\{ opacity: \cf8 1\cf0 , y: \cf8 0\cf0  \}\}\cb1 \
+\cb3             className=\cf6 "text-center"\cf0 \cb1 \
+\cb3           >\cb1 \
+\cb3             <span className=\cf6 "inline-flex items-center gap-2 bg-green-600/10 border border-green-600/30 rounded-full px-4 py-2 mb-6"\cf0 >\cb1 \
+\cb3               <\cf5 TreePine\cf0  className=\cf6 "w-4 h-4 text-green-500"\cf0  />\cb1 \
+\cb3               <span className=\cf6 "text-green-400 text-sm font-medium"\cf0 >\cf5 Depuis\cf0  \cf8 1999\cf0 </span>\cb1 \
+\cb3             </span>\cb1 \
+\cb3             <h1 className=\cf6 "text-5xl md:text-7xl font-bold text-white mb-6"\cf0 >\cb1 \
+\cb3               \cf5 Notre\cf0  \cf5 Club\cf0 \cb1 \
+\cb3             </h1>\cb1 \
+\cb3             <p className=\cf6 "text-xl text-gray-400 max-w-3xl mx-auto"\cf0 >\cb1 \
+\cb3               \cf5 D\cf9 \'e9\cf0 couvrez l\cf6 'Arc Club Mol\'e9son, un club passionn\'e9 au c\'9cur des Alpes suisses.\cf0 \cb1 \
+\cb3             </p>\cb1 \
+\cb3           </motion.div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf7 /* History Section */\cf0 \}\cb1 \
+\cb3       <section className=\cf6 "py-24 bg-zinc-950"\cf0 >\cb1 \
+\cb3         <div className=\cf6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 >\cb1 \
+\cb3           <div className=\cf6 "grid lg:grid-cols-2 gap-16 items-center"\cf0 >\cb1 \
+\cb3             <motion.div\cb1 \
+\cb3               initial=\{\{ opacity: \cf8 0\cf0 , x: -\cf8 30\cf0  \}\}\cb1 \
+\cb3               whileInView=\{\{ opacity: \cf8 1\cf0 , x: \cf8 0\cf0  \}\}\cb1 \
+\cb3               viewport=\{\{ once: \cf2 true\cf0  \}\}\cb1 \
+\cb3             >\cb1 \
+\cb3               <span className=\cf6 "text-red-500 font-medium tracking-wider uppercase text-sm"\cf0 >\cb1 \
+\cb3                 \cf5 Notre\cf0  \cf5 Histoire\cf0 \cb1 \
+\cb3               </span>\cb1 \
+\cb3               <h2 className=\cf6 "text-4xl md:text-5xl font-bold text-white mt-4 mb-6"\cf0 >\cb1 \
+\cb3                 \cf8 25\cf0  ans de passion\cb1 \
+\cb3               </h2>\cb1 \
+\cb3               <div className=\cf6 "space-y-4 text-gray-400 leading-relaxed"\cf0 >\cb1 \
+\cb3                 <p>\cb1 \
+\cb3                   \cf5 Fond\cf9 \'e9\cf0  en \cf8 1999\cf0  par un groupe d\cf6 'amis passionn\'e9s, l'\cf5 Arc\cf0  \cf5 Club\cf0  \cf5 Mol\cf9 \'e9\cf0 son a vu le jour \cb1 \
+\cb3                   au pied de la montagne embl\cf9 \'e9\cf0 matique du canton de \cf5 Fribourg\cf0 .\cb1 \
+\cb3                 </p>\cb1 \
+\cb3                 <p>\cb1 \
+\cb3                   \cf5 Ce\cf0  qui a commenc\cf9 \'e9\cf0  comme un petit groupe de tireurs s\cf6 'est transform\'e9 en une \cf0 \cb1 \
+\cb3                   communaut\cf9 \'e9\cf0  dynamique de plus de \cf8 50\cf0  membres, unis par leur amour du tir \cf9 \'e0\cf0  l\cf6 'arc \cf0 \cb1 \
+\cb3                   et de la nature alpine.\cb1 \
+\cb3                 </p>\cb1 \
+\cb3                 <p>\cb1 \
+\cb3                   \cf5 Aujourd\cf6 'hui, notre club est reconnu pour la qualit\'e9 de sa formation, son \cf0 \cb1 \
+\cb3                   cadre exceptionnel et l\cf6 'accueil chaleureux r\'e9serv\'e9 \'e0 tous les passionn\'e9s, \cf0 \cb1 \
+\cb3                   qu\cf6 'ils soient d\'e9butants ou archers confirm\'e9s.\cf0 \cb1 \
+\cb3                 </p>\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </motion.div>\cb1 \
+\
+\cb3             <motion.div\cb1 \
+\cb3               initial=\{\{ opacity: \cf8 0\cf0 , x: \cf8 30\cf0  \}\}\cb1 \
+\cb3               whileInView=\{\{ opacity: \cf8 1\cf0 , x: \cf8 0\cf0  \}\}\cb1 \
+\cb3               viewport=\{\{ once: \cf2 true\cf0  \}\}\cb1 \
+\cb3               className=\cf6 "relative"\cf0 \cb1 \
+\cb3             >\cb1 \
+\cb3               <div className=\cf6 "aspect-[4/3] rounded-2xl overflow-hidden"\cf0 >\cb1 \
+\cb3                 <img \cb1 \
+\cb3                   src=\cf6 "https://images.unsplash.com/photo-1565992441121-4367c2967103?w=800&q=80"\cf0 \cb1 \
+\cb3                   alt=\cf6 "Tir \'e0 l'arc"\cf0 \cb1 \
+\cb3                   className=\cf6 "w-full h-full object-cover"\cf0 \cb1 \
+\cb3                 />\cb1 \
+\cb3               </div>\cb1 \
+\cb3               <div className=\cf6 "absolute -bottom-6 -left-6 bg-gradient-to-br from-red-600 to-red-800 rounded-2xl p-6 shadow-xl"\cf0 >\cb1 \
+\cb3                 <div className=\cf6 "text-4xl font-bold text-white"\cf0 >\cf8 1999\cf0 </div>\cb1 \
+\cb3                 <div className=\cf6 "text-red-200 text-sm"\cf0 >\cf5 Ann\cf9 \'e9\cf0 e de fondation</div>\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </motion.div>\cb1 \
+\cb3           </div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf7 /* Values Section */\cf0 \}\cb1 \
+\cb3       <section className=\cf6 "py-24 bg-black"\cf0 >\cb1 \
+\cb3         <div className=\cf6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 >\cb1 \
+\cb3           <motion.div\cb1 \
+\cb3             initial=\{\{ opacity: \cf8 0\cf0 , y: \cf8 20\cf0  \}\}\cb1 \
+\cb3             whileInView=\{\{ opacity: \cf8 1\cf0 , y: \cf8 0\cf0  \}\}\cb1 \
+\cb3             viewport=\{\{ once: \cf2 true\cf0  \}\}\cb1 \
+\cb3             className=\cf6 "text-center mb-16"\cf0 \cb1 \
+\cb3           >\cb1 \
+\cb3             <span className=\cf6 "text-red-500 font-medium tracking-wider uppercase text-sm"\cf0 >\cb1 \
+\cb3               \cf5 Nos\cf0  \cf5 Valeurs\cf0 \cb1 \
+\cb3             </span>\cb1 \
+\cb3             <h2 className=\cf6 "text-4xl md:text-5xl font-bold text-white mt-4"\cf0 >\cb1 \
+\cb3               \cf5 Ce\cf0  qui nous unit\cb1 \
+\cb3             </h2>\cb1 \
+\cb3           </motion.div>\cb1 \
+\
+\cb3           <div className=\cf6 "grid md:grid-cols-2 lg:grid-cols-4 gap-6"\cf0 >\cb1 \
+\cb3             \{values.map((value, index) => (\cb1 \
+\cb3               <motion.div\cb1 \
+\cb3                 key=\{index\}\cb1 \
+\cb3                 initial=\{\{ opacity: \cf8 0\cf0 , y: \cf8 30\cf0  \}\}\cb1 \
+\cb3                 whileInView=\{\{ opacity: \cf8 1\cf0 , y: \cf8 0\cf0  \}\}\cb1 \
+\cb3                 viewport=\{\{ once: \cf2 true\cf0  \}\}\cb1 \
+\cb3                 transition=\{\{ delay: index * \cf8 0.1\cf0  \}\}\cb1 \
+\cb3                 className=\cf6 "bg-zinc-900/50 rounded-2xl p-8 border border-zinc-800 text-center hover:border-red-600/50 transition-colors"\cf0 \cb1 \
+\cb3               >\cb1 \
+\cb3                 <div className=\cf6 "w-16 h-16 rounded-2xl bg-red-600/10 flex items-center justify-center mx-auto mb-6"\cf0 >\cb1 \
+\cb3                   <value.icon className=\cf6 "w-8 h-8 text-red-500"\cf0  />\cb1 \
+\cb3                 </div>\cb1 \
+\cb3                 <h3 className=\cf6 "text-xl font-semibold text-white mb-3"\cf0 >\{value.title\}</h3>\cb1 \
+\cb3                 <p className=\cf6 "text-gray-400"\cf0 >\{value.description\}</p>\cb1 \
+\cb3               </motion.div>\cb1 \
+\cb3             ))\}\cb1 \
+\cb3           </div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf7 /* Membership Section */\cf0 \}\cb1 \
+\cb3       <section className=\cf6 "py-24 bg-zinc-950"\cf0 >\cb1 \
+\cb3         <div className=\cf6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 >\cb1 \
+\cb3           <motion.div\cb1 \
+\cb3             initial=\{\{ opacity: \cf8 0\cf0 , y: \cf8 20\cf0  \}\}\cb1 \
+\cb3             whileInView=\{\{ opacity: \cf8 1\cf0 , y: \cf8 0\cf0  \}\}\cb1 \
+\cb3             viewport=\{\{ once: \cf2 true\cf0  \}\}\cb1 \
+\cb3             className=\cf6 "text-center mb-16"\cf0 \cb1 \
+\cb3           >\cb1 \
+\cb3             <span className=\cf6 "text-red-500 font-medium tracking-wider uppercase text-sm"\cf0 >\cb1 \
+\cb3               \cf5 Adh\cf9 \'e9\cf0 sion\cb1 \
+\cb3             </span>\cb1 \
+\cb3             <h2 className=\cf6 "text-4xl md:text-5xl font-bold text-white mt-4 mb-6"\cf0 >\cb1 \
+\cb3               \cf5 Rejoignez\cf0 -nous\cb1 \
+\cb3             </h2>\cb1 \
+\cb3             <p className=\cf6 "text-xl text-gray-400 max-w-2xl mx-auto"\cf0 >\cb1 \
+\cb3               \cf5 Choisissez\cf0  la formule qui vous convient et faites partie de notre communaut\cf9 \'e9\cf0 .\cb1 \
+\cb3             </p>\cb1 \
+\cb3           </motion.div>\cb1 \
+\
+\cb3           <div className=\cf6 "grid md:grid-cols-2 lg:grid-cols-4 gap-6"\cf0 >\cb1 \
+\cb3             \{membershipTypes.map((type, index) => (\cb1 \
+\cb3               <motion.div\cb1 \
+\cb3                 key=\{index\}\cb1 \
+\cb3                 initial=\{\{ opacity: \cf8 0\cf0 , y: \cf8 30\cf0  \}\}\cb1 \
+\cb3                 whileInView=\{\{ opacity: \cf8 1\cf0 , y: \cf8 0\cf0  \}\}\cb1 \
+\cb3                 viewport=\{\{ once: \cf2 true\cf0  \}\}\cb1 \
+\cb3                 transition=\{\{ delay: index * \cf8 0.1\cf0  \}\}\cb1 \
+\cb3                 className=\{\cf6 `relative rounded-2xl p-8 border \cf0 $\{\cb1 \
+\cb3                   type.popular \cb1 \
+\cb3                     ? \cf6 'bg-gradient-to-br from-red-900/30 to-red-950/30 border-red-600/50'\cf0  \cb1 \
+\cb3                     : \cf6 'bg-zinc-900/50 border-zinc-800'\cf0 \cb1 \
+\cb3                 \}\cf6 `\cf0 \}\cb1 \
+\cb3               >\cb1 \
+\cb3                 \{type.popular && (\cb1 \
+\cb3                   <div className=\cf6 "absolute -top-3 left-1/2 -translate-x-1/2 bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-full"\cf0 >\cb1 \
+\cb3                     \cf5 Populaire\cf0 \cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 )\}\cb1 \
+\cb3                 <h3 className=\cf6 "text-xl font-semibold text-white mb-1"\cf0 >\{type.name\}</h3>\cb1 \
+\cb3                 <p className=\cf6 "text-gray-400 text-sm mb-4"\cf0 >\{type.description\}</p>\cb1 \
+\cb3                 <div className=\cf6 "mb-6"\cf0 >\cb1 \
+\cb3                   <span className=\cf6 "text-4xl font-bold text-white"\cf0 >\cf5 CHF\cf0  \{type.price\}</span>\cb1 \
+\cb3                   <span className=\cf6 "text-gray-400"\cf0 >/an</span>\cb1 \
+\cb3                 </div>\cb1 \
+\cb3                 <ul className=\cf6 "space-y-3 mb-8"\cf0 >\cb1 \
+\cb3                   \{type.features.map((feature, i) => (\cb1 \
+\cb3                     <li key=\{i\} className=\cf6 "flex items-center gap-2 text-gray-300 text-sm"\cf0 >\cb1 \
+\cb3                       <\cf5 ChevronRight\cf0  className=\cf6 "w-4 h-4 text-red-500"\cf0  />\cb1 \
+\cb3                       \{feature\}\cb1 \
+\cb3                     </li>\cb1 \
+\cb3                   ))\}\cb1 \
+\cb3                 </ul>\cb1 \
+\cb3                 <\cf5 Link\cf0  to=\{createPageUrl(\cf6 'MemberDashboard'\cf0 )\}>\cb1 \
+\cb3                   <\cf5 Button\cf0  \cb1 \
+\cb3                     className=\{\cf6 `w-full \cf0 $\{\cb1 \
+\cb3                       type.popular \cb1 \
+\cb3                         ? \cf6 'bg-red-600 hover:bg-red-700'\cf0  \cb1 \
+\cb3                         : \cf6 'bg-zinc-800 hover:bg-zinc-700'\cf0 \cb1 \
+\cb3                     \}\cf6 `\cf0 \}\cb1 \
+\cb3                   >\cb1 \
+\cb3                     \cf5 S\cf6 'inscrire\cf0 \cb1 \
+\cb3                   </\cf5 Button\cf0 >\cb1 \
+\cb3                 </\cf5 Link\cf0 >\cb1 \
+\cb3               </motion.div>\cb1 \
+\cb3             ))\}\cb1 \
+\cb3           </div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf7 /* Contact Section */\cf0 \}\cb1 \
+\cb3       <section className=\cf6 "py-24 bg-black"\cf0 >\cb1 \
+\cb3         <div className=\cf6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 >\cb1 \
+\cb3           <div className=\cf6 "grid lg:grid-cols-2 gap-16"\cf0 >\cb1 \
+\cb3             <motion.div\cb1 \
+\cb3               initial=\{\{ opacity: \cf8 0\cf0 , x: -\cf8 30\cf0  \}\}\cb1 \
+\cb3               whileInView=\{\{ opacity: \cf8 1\cf0 , x: \cf8 0\cf0  \}\}\cb1 \
+\cb3               viewport=\{\{ once: \cf2 true\cf0  \}\}\cb1 \
+\cb3             >\cb1 \
+\cb3               <span className=\cf6 "text-red-500 font-medium tracking-wider uppercase text-sm"\cf0 >\cb1 \
+\cb3                 \cf5 Contact\cf0 \cb1 \
+\cb3               </span>\cb1 \
+\cb3               <h2 className=\cf6 "text-4xl md:text-5xl font-bold text-white mt-4 mb-6"\cf0 >\cb1 \
+\cb3                 \cf5 Informations\cf0  pratiques\cb1 \
+\cb3               </h2>\cb1 \
+\cb3               \cb1 \
+\cb3               <div className=\cf6 "space-y-6"\cf0 >\cb1 \
+\cb3                 <div className=\cf6 "flex items-start gap-4 p-6 bg-zinc-900/50 rounded-xl border border-zinc-800"\cf0 >\cb1 \
+\cb3                   <div className=\cf6 "w-12 h-12 rounded-xl bg-red-600/20 flex items-center justify-center flex-shrink-0"\cf0 >\cb1 \
+\cb3                     <\cf5 MapPin\cf0  className=\cf6 "w-6 h-6 text-red-500"\cf0  />\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                   <div>\cb1 \
+\cb3                     <h3 className=\cf6 "font-semibold text-white mb-1"\cf0 >\cf5 Adresse\cf0 </h3>\cb1 \
+\cb3                     <p className=\cf6 "text-gray-400"\cf0 >\cb1 \
+\cb3                       \cf5 Stand\cf0  de tir \cf9 \'e0\cf0  l\cf6 'arc<br />\cf0 \cb1 \
+\cb3                       \cf5 Route\cf0  du \cf5 Mol\cf9 \'e9\cf0 son<br />\cb1 \
+\cb3                       \cf8 1663\cf0  \cf5 Mol\cf9 \'e9\cf0 son-sur-\cf5 Gruy\cf9 \'e8\cf0 res\cb1 \
+\cb3                     </p>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 </div>\cb1 \
+\
+\cb3                 <div className=\cf6 "flex items-start gap-4 p-6 bg-zinc-900/50 rounded-xl border border-zinc-800"\cf0 >\cb1 \
+\cb3                   <div className=\cf6 "w-12 h-12 rounded-xl bg-green-600/20 flex items-center justify-center flex-shrink-0"\cf0 >\cb1 \
+\cb3                     <\cf5 Clock\cf0  className=\cf6 "w-6 h-6 text-green-500"\cf0  />\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                   <div>\cb1 \
+\cb3                     <h3 className=\cf6 "font-semibold text-white mb-2"\cf0 >\cf5 Horaires\cf0 </h3>\cb1 \
+\cb3                     <div className=\cf6 "space-y-1 text-gray-400 text-sm"\cf0 >\cb1 \
+\cb3                       <div className=\cf6 "flex justify-between"\cf0 >\cb1 \
+\cb3                         <span>\cf5 Mardi\cf0  - \cf5 Vendredi\cf0 </span>\cb1 \
+\cb3                         <span className=\cf6 "text-white"\cf0 >\cf8 18\cf0 h00 - \cf8 21\cf0 h00</span>\cb1 \
+\cb3                       </div>\cb1 \
+\cb3                       <div className=\cf6 "flex justify-between"\cf0 >\cb1 \
+\cb3                         <span>\cf5 Samedi\cf0 </span>\cb1 \
+\cb3                         <span className=\cf6 "text-white"\cf0 >\cf8 09\cf0 h00 - \cf8 17\cf0 h00</span>\cb1 \
+\cb3                       </div>\cb1 \
+\cb3                       <div className=\cf6 "flex justify-between"\cf0 >\cb1 \
+\cb3                         <span>\cf5 Dimanche\cf0 </span>\cb1 \
+\cb3                         <span className=\cf6 "text-white"\cf0 >\cf8 09\cf0 h00 - \cf8 12\cf0 h00</span>\cb1 \
+\cb3                       </div>\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 </div>\cb1 \
+\
+\cb3                 <div className=\cf6 "grid grid-cols-2 gap-4"\cf0 >\cb1 \
+\cb3                   <div className=\cf6 "flex items-center gap-3 p-4 bg-zinc-900/50 rounded-xl border border-zinc-800"\cf0 >\cb1 \
+\cb3                     <\cf5 Mail\cf0  className=\cf6 "w-5 h-5 text-red-500"\cf0  />\cb1 \
+\cb3                     <span className=\cf6 "text-gray-400 text-sm"\cf0 >contact\cf9 @\cf0 arcclub-moleson.ch</span>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                   <div className=\cf6 "flex items-center gap-3 p-4 bg-zinc-900/50 rounded-xl border border-zinc-800"\cf0 >\cb1 \
+\cb3                     <\cf5 Phone\cf0  className=\cf6 "w-5 h-5 text-red-500"\cf0  />\cb1 \
+\cb3                     <span className=\cf6 "text-gray-400 text-sm"\cf0 >+\cf8 41\cf0  \cf8 26\cf0  \cf5 XXX\cf0  \cf5 XX\cf0  \cf5 XX\cf0 </span>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 </div>\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </motion.div>\cb1 \
+\
+\cb3             <motion.div\cb1 \
+\cb3               initial=\{\{ opacity: \cf8 0\cf0 , x: \cf8 30\cf0  \}\}\cb1 \
+\cb3               whileInView=\{\{ opacity: \cf8 1\cf0 , x: \cf8 0\cf0  \}\}\cb1 \
+\cb3               viewport=\{\{ once: \cf2 true\cf0  \}\}\cb1 \
+\cb3               className=\cf6 "rounded-2xl overflow-hidden h-[500px]"\cf0 \cb1 \
+\cb3             >\cb1 \
+\cb3               <iframe\cb1 \
+\cb3                 src=\cf6 "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11001.42738074!2d7.0127!3d46.5477!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478e52a5e3b5b7d3%3A0x2c8c5e1c5e1c5e1c!2sMol%C3%A9son-sur-Gruy%C3%A8res!5e0!3m2!1sfr!2sch!4v1234567890"\cf0 \cb1 \
+\cb3                 width=\cf6 "100%"\cf0 \cb1 \
+\cb3                 height=\cf6 "100%"\cf0 \cb1 \
+\cb3                 style=\{\{ border: \cf8 0\cf0  \}\}\cb1 \
+\cb3                 allowFullScreen=\cf6 ""\cf0 \cb1 \
+\cb3                 loading=\cf6 "lazy"\cf0 \cb1 \
+\cb3                 referrerPolicy=\cf6 "no-referrer-when-downgrade"\cf0 \cb1 \
+\cb3                 className=\cf6 "grayscale contrast-125"\cf0 \cb1 \
+\cb3               />\cb1 \
+\cb3             </motion.div>\cb1 \
+\cb3           </div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf7 /* CTA */\cf0 \}\cb1 \
+\cb3       <section className=\cf6 "py-24 bg-gradient-to-br from-red-900/20 to-zinc-950"\cf0 >\cb1 \
+\cb3         <div className=\cf6 "max-w-4xl mx-auto px-4 text-center"\cf0 >\cb1 \
+\cb3           <motion.div\cb1 \
+\cb3             initial=\{\{ opacity: \cf8 0\cf0 , y: \cf8 20\cf0  \}\}\cb1 \
+\cb3             whileInView=\{\{ opacity: \cf8 1\cf0 , y: \cf8 0\cf0  \}\}\cb1 \
+\cb3             viewport=\{\{ once: \cf2 true\cf0  \}\}\cb1 \
+\cb3           >\cb1 \
+\cb3             <h2 className=\cf6 "text-4xl md:text-5xl font-bold text-white mb-6"\cf0 >\cb1 \
+\cb3               \cf5 Pr\cf9 \'ea\cf0 t \cf9 \'e0\cf0  commencer ?\cb1 \
+\cb3             </h2>\cb1 \
+\cb3             <p className=\cf6 "text-xl text-gray-400 mb-8"\cf0 >\cb1 \
+\cb3               \cf5 R\cf9 \'e9\cf0 servez votre premi\cf9 \'e8\cf0 re s\cf9 \'e9\cf0 ance d\cf6 'initiation gratuite.\cf0 \cb1 \
+\cb3             </p>\cb1 \
+\cb3             <\cf5 Link\cf0  to=\{createPageUrl(\cf6 'Bookings'\cf0 )\}>\cb1 \
+\cb3               <\cf5 Button\cf0  \cb1 \
+\cb3                 size=\cf6 "lg"\cf0 \cb1 \
+\cb3                 className=\cf6 "bg-red-600 hover:bg-red-700 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-lg shadow-red-600/30"\cf0 \cb1 \
+\cb3               >\cb1 \
+\cb3                 <\cf5 Calendar\cf0  className=\cf6 "w-5 h-5 mr-2"\cf0  />\cb1 \
+\cb3                 \cf5 R\cf9 \'e9\cf0 server maintenant\cb1 \
+\cb3               </\cf5 Button\cf0 >\cb1 \
+\cb3             </\cf5 Link\cf0 >\cb1 \
+\cb3           </motion.div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\cb3     </div>\cb1 \
+\cb3   );\cb1 \
+\cb3 \}\cb1 \
+}

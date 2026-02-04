@@ -1,0 +1,278 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red255\green255\blue254;\red0\green0\blue0;
+\red14\green110\blue109;\red144\green1\blue18;\red19\green118\blue70;\red15\green112\blue1;\red191\green28\blue37;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c100000;\cssrgb\c100000\c100000\c99608;\cssrgb\c0\c0\c0;
+\cssrgb\c0\c50196\c50196;\cssrgb\c63922\c8235\c8235;\cssrgb\c3529\c52549\c34510;\cssrgb\c0\c50196\c0;\cssrgb\c80392\c19216\c19216;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 React\cf0 \strokec4 , \{ useState, useEffect \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'react'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ motion, \cf5 \strokec5 AnimatePresence\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'framer-motion'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ useQuery \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@tanstack/react-query'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ base44 \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/api/base44Client'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \cf5 \strokec5 X\cf0 \strokec4 , \cf5 \strokec5 ChevronLeft\cf0 \strokec4 , \cf5 \strokec5 ChevronRight\cf0 \strokec4 , \cf5 \strokec5 Camera\cf0 \strokec4 , \cf5 \strokec5 Play\cf0 \strokec4 , \cf5 \strokec5 Pause\cf0 \strokec4 , \cb1 \
+\cb3   \cf5 \strokec5 Maximize2\cf0 \strokec4 , \cf5 \strokec5 Grid\cf0 \strokec4 , \cf5 \strokec5 LayoutGrid\cf0 \strokec4 , \cf5 \strokec5 Filter\cf0 \cb1 \strokec4 \
+\cb3 \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'lucide-react'\cf0 \strokec4 ;\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Button\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/button'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Skeleton\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/skeleton'\cf0 \strokec4 ;\cb1 \
+\
+\cf2 \cb3 \strokec2 const\cf0 \strokec4  defaultImages = [\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \{ id: \cf7 \strokec7 1\cf0 \strokec4 , image_url: \cf6 \strokec6 'https://images.unsplash.com/photo-1510925758641-869d353cecc7?w=1200&q=80'\cf0 \strokec4 , title: \cf6 \strokec6 'Comp\'e9tition r\'e9gionale'\cf0 \strokec4 , category: \cf6 \strokec6 'competition'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf7 \strokec7 2\cf0 \strokec4 , image_url: \cf6 \strokec6 'https://images.unsplash.com/photo-1565992441121-4367c2967103?w=1200&q=80'\cf0 \strokec4 , title: \cf6 \strokec6 'Entra\'eenement du soir'\cf0 \strokec4 , category: \cf6 \strokec6 'entrainement'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf7 \strokec7 3\cf0 \strokec4 , image_url: \cf6 \strokec6 'https://images.unsplash.com/photo-1548695607-9c73430ba065?w=1200&q=80'\cf0 \strokec4 , title: \cf6 \strokec6 'Vue sur le Mol\'e9son'\cf0 \strokec4 , category: \cf6 \strokec6 'nature'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf7 \strokec7 4\cf0 \strokec4 , image_url: \cf6 \strokec6 'https://images.unsplash.com/photo-1504025468847-0e438279542c?w=1200&q=80'\cf0 \strokec4 , title: \cf6 \strokec6 'Journ\'e9e club'\cf0 \strokec4 , category: \cf6 \strokec6 'club'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf7 \strokec7 5\cf0 \strokec4 , image_url: \cf6 \strokec6 'https://images.unsplash.com/photo-1533240332313-0db49b459ad6?w=1200&q=80'\cf0 \strokec4 , title: \cf6 \strokec6 'Pr\'e9alpes fribourgeoises'\cf0 \strokec4 , category: \cf6 \strokec6 'nature'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf7 \strokec7 6\cf0 \strokec4 , image_url: \cf6 \strokec6 'https://images.unsplash.com/photo-1517466787929-bc90951d0974?w=1200&q=80'\cf0 \strokec4 , title: \cf6 \strokec6 'Cible'\cf0 \strokec4 , category: \cf6 \strokec6 'entrainement'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf7 \strokec7 7\cf0 \strokec4 , image_url: \cf6 \strokec6 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=1200&q=80'\cf0 \strokec4 , title: \cf6 \strokec6 '\'c9quipement'\cf0 \strokec4 , category: \cf6 \strokec6 'club'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf7 \strokec7 8\cf0 \strokec4 , image_url: \cf6 \strokec6 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1200&q=80'\cf0 \strokec4 , title: \cf6 \strokec6 'Remise des prix'\cf0 \strokec4 , category: \cf6 \strokec6 'competition'\cf0 \strokec4  \},\cb1 \
+\cb3 ];\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf0 \strokec4  categories = [\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \{ id: \cf6 \strokec6 'all'\cf0 \strokec4 , label: \cf6 \strokec6 'Tout'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf6 \strokec6 'competition'\cf0 \strokec4 , label: \cf6 \strokec6 'Comp\'e9titions'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf6 \strokec6 'entrainement'\cf0 \strokec4 , label: \cf6 \strokec6 'Entra\'eenements'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf6 \strokec6 'nature'\cf0 \strokec4 , label: \cf6 \strokec6 'Nature'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf6 \strokec6 'club'\cf0 \strokec4 , label: \cf6 \strokec6 'Vie du club'\cf0 \strokec4  \},\cb1 \
+\cb3 ];\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 export\cf0 \strokec4  \cf2 \strokec2 default\cf0 \strokec4  \cf2 \strokec2 function\cf0 \strokec4  \cf5 \strokec5 Gallery\cf0 \strokec4 () \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \cf2 \strokec2 const\cf0 \strokec4  [selectedImage, setSelectedImage] = useState(\cf2 \strokec2 null\cf0 \strokec4 );\cb1 \
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  [activeCategory, setActiveCategory] = useState(\cf6 \strokec6 'all'\cf0 \strokec4 );\cb1 \
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  [isSlideshow, setIsSlideshow] = useState(\cf2 \strokec2 false\cf0 \strokec4 );\cb1 \
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  [currentIndex, setCurrentIndex] = useState(\cf7 \strokec7 0\cf0 \strokec4 );\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  \{ data: dbImages, isLoading \} = useQuery(\{\cb1 \
+\cb3     queryKey: [\cf6 \strokec6 'gallery-images'\cf0 \strokec4 ],\cb1 \
+\cb3     queryFn: () => base44.entities.\cf5 \strokec5 GalleryImage\cf0 \strokec4 .list(\cf6 \strokec6 'display_order'\cf0 \strokec4 ),\cb1 \
+\cb3     initialData: [],\cb1 \
+\cb3   \});\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  images = dbImages.length > \cf7 \strokec7 0\cf0 \strokec4  ? dbImages : defaultImages;\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  filteredImages = activeCategory === \cf6 \strokec6 'all'\cf0 \strokec4  \cb1 \
+\cb3     ? images \cb1 \
+\cb3     : images.filter(img => img.category === activeCategory);\cb1 \
+\
+\cb3   \cf8 \strokec8 // Slideshow effect\cf0 \cb1 \strokec4 \
+\cb3   useEffect(() => \{\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  (isSlideshow && selectedImage) \{\cb1 \
+\cb3       \cf2 \strokec2 const\cf0 \strokec4  interval = setInterval(() => \{\cb1 \
+\cb3         \cf2 \strokec2 const\cf0 \strokec4  currentIdx = filteredImages.findIndex(img => img.id === selectedImage.id);\cb1 \
+\cb3         \cf2 \strokec2 const\cf0 \strokec4  nextIdx = (currentIdx + \cf7 \strokec7 1\cf0 \strokec4 ) % filteredImages.length;\cb1 \
+\cb3         setSelectedImage(filteredImages[nextIdx]);\cb1 \
+\cb3       \}, \cf7 \strokec7 4000\cf0 \strokec4 );\cb1 \
+\cb3       \cf2 \strokec2 return\cf0 \strokec4  () => clearInterval(interval);\cb1 \
+\cb3     \}\cb1 \
+\cb3   \}, [isSlideshow, selectedImage, filteredImages]);\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  navigateImage = (direction) => \{\cb1 \
+\cb3     \cf2 \strokec2 const\cf0 \strokec4  currentIdx = filteredImages.findIndex(img => img.id === selectedImage.id);\cb1 \
+\cb3     \cf2 \strokec2 const\cf0 \strokec4  newIdx = direction === \cf6 \strokec6 'next'\cf0 \strokec4  \cb1 \
+\cb3       ? (currentIdx + \cf7 \strokec7 1\cf0 \strokec4 ) % filteredImages.length\cb1 \
+\cb3       : (currentIdx - \cf7 \strokec7 1\cf0 \strokec4  + filteredImages.length) % filteredImages.length;\cb1 \
+\cb3     setSelectedImage(filteredImages[newIdx]);\cb1 \
+\cb3   \};\cb1 \
+\
+\cb3   \cf8 \strokec8 // Keyboard navigation\cf0 \cb1 \strokec4 \
+\cb3   useEffect(() => \{\cb1 \
+\cb3     \cf2 \strokec2 const\cf0 \strokec4  handleKeyDown = (e) => \{\cb1 \
+\cb3       \cf2 \strokec2 if\cf0 \strokec4  (selectedImage) \{\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  (e.key === \cf6 \strokec6 'ArrowRight'\cf0 \strokec4 ) navigateImage(\cf6 \strokec6 'next'\cf0 \strokec4 );\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  (e.key === \cf6 \strokec6 'ArrowLeft'\cf0 \strokec4 ) navigateImage(\cf6 \strokec6 'prev'\cf0 \strokec4 );\cb1 \
+\cb3         \cf2 \strokec2 if\cf0 \strokec4  (e.key === \cf6 \strokec6 'Escape'\cf0 \strokec4 ) setSelectedImage(\cf2 \strokec2 null\cf0 \strokec4 );\cb1 \
+\cb3       \}\cb1 \
+\cb3     \};\cb1 \
+\cb3     window.addEventListener(\cf6 \strokec6 'keydown'\cf0 \strokec4 , handleKeyDown);\cb1 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  () => window.removeEventListener(\cf6 \strokec6 'keydown'\cf0 \strokec4 , handleKeyDown);\cb1 \
+\cb3   \}, [selectedImage, filteredImages]);\cb1 \
+\
+\cb3   \cf2 \strokec2 return\cf0 \strokec4  (\cb1 \
+\cb3     <div className=\cf6 \strokec6 "bg-black min-h-screen pt-20"\cf0 \strokec4 >\cb1 \
+\cb3       \{\cf8 \strokec8 /* Hero */\cf0 \strokec4 \}\cb1 \
+\cb3       <section className=\cf6 \strokec6 "py-16 md:py-24"\cf0 \strokec4 >\cb1 \
+\cb3         <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec4 >\cb1 \
+\cb3           <motion.div\cb1 \
+\cb3             initial=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4 , y: \cf7 \strokec7 20\cf0 \strokec4  \}\}\cb1 \
+\cb3             animate=\{\{ opacity: \cf7 \strokec7 1\cf0 \strokec4 , y: \cf7 \strokec7 0\cf0 \strokec4  \}\}\cb1 \
+\cb3             className=\cf6 \strokec6 "text-center"\cf0 \cb1 \strokec4 \
+\cb3           >\cb1 \
+\cb3             <span className=\cf6 \strokec6 "inline-flex items-center gap-2 bg-red-600/10 border border-red-600/30 rounded-full px-4 py-2 mb-6"\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 Camera\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 text-red-500"\cf0 \strokec4  />\cb1 \
+\cb3               <span className=\cf6 \strokec6 "text-red-400 text-sm font-medium"\cf0 \strokec4 >\cf5 \strokec5 Galerie\cf0 \strokec4  \cf5 \strokec5 Photo\cf0 \strokec4 </span>\cb1 \
+\cb3             </span>\cb1 \
+\cb3             <h1 className=\cf6 \strokec6 "text-4xl md:text-6xl font-bold text-white mb-6"\cf0 \strokec4 >\cb1 \
+\cb3               \cf5 \strokec5 Nos\cf0 \strokec4  plus beaux<br />\cb1 \
+\cb3               <span className=\cf6 \strokec6 "text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700"\cf0 \strokec4 >\cb1 \
+\cb3                 moments\cb1 \
+\cb3               </span>\cb1 \
+\cb3             </h1>\cb1 \
+\cb3             <p className=\cf6 \strokec6 "text-xl text-gray-400 max-w-2xl mx-auto"\cf0 \strokec4 >\cb1 \
+\cb3               \cf5 \strokec5 D\cf9 \strokec9 \'e9\cf0 \strokec4 couvrez les moments forts du club \cf9 \strokec9 \'e0\cf0 \strokec4  travers notre galerie photo.\cb1 \
+\cb3             </p>\cb1 \
+\cb3           </motion.div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf8 \strokec8 /* Filters */\cf0 \strokec4 \}\cb1 \
+\cb3       <section className=\cf6 \strokec6 "pb-8"\cf0 \strokec4 >\cb1 \
+\cb3         <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec4 >\cb1 \
+\cb3           <div className=\cf6 \strokec6 "flex flex-wrap gap-3 justify-center"\cf0 \strokec4 >\cb1 \
+\cb3             \{categories.map((category) => (\cb1 \
+\cb3               <\cf5 \strokec5 Button\cf0 \cb1 \strokec4 \
+\cb3                 key=\{category.id\}\cb1 \
+\cb3                 variant=\{activeCategory === category.id ? \cf6 \strokec6 "default"\cf0 \strokec4  : \cf6 \strokec6 "outline"\cf0 \strokec4 \}\cb1 \
+\cb3                 onClick=\{() => setActiveCategory(category.id)\}\cb1 \
+\cb3                 className=\{\cf6 \strokec6 `rounded-full \cf0 \strokec4 $\{\cb1 \
+\cb3                   activeCategory === category.id \cb1 \
+\cb3                     ? \cf6 \strokec6 'bg-red-600 hover:bg-red-700 border-red-600'\cf0 \strokec4  \cb1 \
+\cb3                     : \cf6 \strokec6 'border-zinc-700 text-gray-400 hover:text-white hover:border-zinc-500'\cf0 \cb1 \strokec4 \
+\cb3                 \}\cf6 \strokec6 `\cf0 \strokec4 \}\cb1 \
+\cb3               >\cb1 \
+\cb3                 \{category.label\}\cb1 \
+\cb3               </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3             ))\}\cb1 \
+\cb3           </div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf8 \strokec8 /* Gallery Grid */\cf0 \strokec4 \}\cb1 \
+\cb3       <section className=\cf6 \strokec6 "pb-24"\cf0 \strokec4 >\cb1 \
+\cb3         <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec4 >\cb1 \
+\cb3           \{isLoading ? (\cb1 \
+\cb3             <div className=\cf6 \strokec6 "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"\cf0 \strokec4 >\cb1 \
+\cb3               \{[...\cf5 \strokec5 Array\cf0 \strokec4 (\cf7 \strokec7 8\cf0 \strokec4 )].map((_, i) => (\cb1 \
+\cb3                 <\cf5 \strokec5 Skeleton\cf0 \strokec4  key=\{i\} className=\cf6 \strokec6 "aspect-square rounded-2xl bg-zinc-800"\cf0 \strokec4  />\cb1 \
+\cb3               ))\}\cb1 \
+\cb3             </div>\cb1 \
+\cb3           ) : (\cb1 \
+\cb3             <motion.div \cb1 \
+\cb3               className=\cf6 \strokec6 "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"\cf0 \cb1 \strokec4 \
+\cb3               layout\cb1 \
+\cb3             >\cb1 \
+\cb3               <\cf5 \strokec5 AnimatePresence\cf0 \strokec4  mode=\cf6 \strokec6 "popLayout"\cf0 \strokec4 >\cb1 \
+\cb3                 \{filteredImages.map((image, index) => (\cb1 \
+\cb3                   <motion.div\cb1 \
+\cb3                     key=\{image.id\}\cb1 \
+\cb3                     layout\cb1 \
+\cb3                     initial=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4 , scale: \cf7 \strokec7 0.8\cf0 \strokec4  \}\}\cb1 \
+\cb3                     animate=\{\{ opacity: \cf7 \strokec7 1\cf0 \strokec4 , scale: \cf7 \strokec7 1\cf0 \strokec4  \}\}\cb1 \
+\cb3                     exit=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4 , scale: \cf7 \strokec7 0.8\cf0 \strokec4  \}\}\cb1 \
+\cb3                     transition=\{\{ duration: \cf7 \strokec7 0.3\cf0 \strokec4 , delay: index * \cf7 \strokec7 0.05\cf0 \strokec4  \}\}\cb1 \
+\cb3                     className=\{\cf6 \strokec6 `group relative cursor-pointer overflow-hidden rounded-2xl \cf0 \strokec4 $\{\cb1 \
+\cb3                       index % \cf7 \strokec7 5\cf0 \strokec4  === \cf7 \strokec7 0\cf0 \strokec4  ? \cf6 \strokec6 'md:col-span-2 md:row-span-2'\cf0 \strokec4  : \cf6 \strokec6 ''\cf0 \cb1 \strokec4 \
+\cb3                     \}\cf6 \strokec6 `\cf0 \strokec4 \}\cb1 \
+\cb3                     onClick=\{() => setSelectedImage(image)\}\cb1 \
+\cb3                   >\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "aspect-square"\cf0 \strokec4 >\cb1 \
+\cb3                       <img\cb1 \
+\cb3                         src=\{image.image_url\}\cb1 \
+\cb3                         alt=\{image.title\}\cb1 \
+\cb3                         className=\cf6 \strokec6 "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"\cf0 \cb1 \strokec4 \
+\cb3                       />\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"\cf0 \strokec4  />\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"\cf0 \strokec4 >\cb1 \
+\cb3                       <h3 className=\cf6 \strokec6 "text-white font-medium"\cf0 \strokec4 >\{image.title\}</h3>\cb1 \
+\cb3                       <p className=\cf6 \strokec6 "text-gray-400 text-sm capitalize"\cf0 \strokec4 >\{image.category?.replace(\cf6 \strokec6 '_'\cf0 \strokec4 , \cf6 \strokec6 ' '\cf0 \strokec4 )\}</p>\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"\cf0 \strokec4 >\cb1 \
+\cb3                       <div className=\cf6 \strokec6 "w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"\cf0 \strokec4 >\cb1 \
+\cb3                         <\cf5 \strokec5 Maximize2\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5 text-white"\cf0 \strokec4  />\cb1 \
+\cb3                       </div>\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                   </motion.div>\cb1 \
+\cb3                 ))\}\cb1 \
+\cb3               </\cf5 \strokec5 AnimatePresence\cf0 \strokec4 >\cb1 \
+\cb3             </motion.div>\cb1 \
+\cb3           )\}\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf8 \strokec8 /* Lightbox */\cf0 \strokec4 \}\cb1 \
+\cb3       <\cf5 \strokec5 AnimatePresence\cf0 \strokec4 >\cb1 \
+\cb3         \{selectedImage && (\cb1 \
+\cb3           <motion.div\cb1 \
+\cb3             initial=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4  \}\}\cb1 \
+\cb3             animate=\{\{ opacity: \cf7 \strokec7 1\cf0 \strokec4  \}\}\cb1 \
+\cb3             exit=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4  \}\}\cb1 \
+\cb3             className=\cf6 \strokec6 "fixed inset-0 z-50 bg-black/95 backdrop-blur-lg flex items-center justify-center"\cf0 \cb1 \strokec4 \
+\cb3             onClick=\{() => setSelectedImage(\cf2 \strokec2 null\cf0 \strokec4 )\}\cb1 \
+\cb3           >\cb1 \
+\cb3             \{\cf8 \strokec8 /* Close button */\cf0 \strokec4 \}\cb1 \
+\cb3             <button\cb1 \
+\cb3               onClick=\{() => setSelectedImage(\cf2 \strokec2 null\cf0 \strokec4 )\}\cb1 \
+\cb3               className=\cf6 \strokec6 "absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"\cf0 \cb1 \strokec4 \
+\cb3             >\cb1 \
+\cb3               <\cf5 \strokec5 X\cf0 \strokec4  className=\cf6 \strokec6 "w-6 h-6 text-white"\cf0 \strokec4  />\cb1 \
+\cb3             </button>\cb1 \
+\
+\cb3             \{\cf8 \strokec8 /* Navigation */\cf0 \strokec4 \}\cb1 \
+\cb3             <button\cb1 \
+\cb3               onClick=\{(e) => \{ e.stopPropagation(); navigateImage(\cf6 \strokec6 'prev'\cf0 \strokec4 ); \}\}\cb1 \
+\cb3               className=\cf6 \strokec6 "absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"\cf0 \cb1 \strokec4 \
+\cb3             >\cb1 \
+\cb3               <\cf5 \strokec5 ChevronLeft\cf0 \strokec4  className=\cf6 \strokec6 "w-8 h-8 text-white"\cf0 \strokec4  />\cb1 \
+\cb3             </button>\cb1 \
+\
+\cb3             <button\cb1 \
+\cb3               onClick=\{(e) => \{ e.stopPropagation(); navigateImage(\cf6 \strokec6 'next'\cf0 \strokec4 ); \}\}\cb1 \
+\cb3               className=\cf6 \strokec6 "absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"\cf0 \cb1 \strokec4 \
+\cb3             >\cb1 \
+\cb3               <\cf5 \strokec5 ChevronRight\cf0 \strokec4  className=\cf6 \strokec6 "w-8 h-8 text-white"\cf0 \strokec4  />\cb1 \
+\cb3             </button>\cb1 \
+\
+\cb3             \{\cf8 \strokec8 /* Image */\cf0 \strokec4 \}\cb1 \
+\cb3             <motion.div\cb1 \
+\cb3               key=\{selectedImage.id\}\cb1 \
+\cb3               initial=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4 , scale: \cf7 \strokec7 0.9\cf0 \strokec4  \}\}\cb1 \
+\cb3               animate=\{\{ opacity: \cf7 \strokec7 1\cf0 \strokec4 , scale: \cf7 \strokec7 1\cf0 \strokec4  \}\}\cb1 \
+\cb3               exit=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4 , scale: \cf7 \strokec7 0.9\cf0 \strokec4  \}\}\cb1 \
+\cb3               transition=\{\{ duration: \cf7 \strokec7 0.3\cf0 \strokec4  \}\}\cb1 \
+\cb3               className=\cf6 \strokec6 "max-w-5xl max-h-[80vh] mx-auto px-4"\cf0 \cb1 \strokec4 \
+\cb3               onClick=\{(e) => e.stopPropagation()\}\cb1 \
+\cb3             >\cb1 \
+\cb3               <img\cb1 \
+\cb3                 src=\{selectedImage.image_url\}\cb1 \
+\cb3                 alt=\{selectedImage.title\}\cb1 \
+\cb3                 className=\cf6 \strokec6 "w-full h-full object-contain rounded-lg"\cf0 \cb1 \strokec4 \
+\cb3               />\cb1 \
+\cb3               <div className=\cf6 \strokec6 "mt-4 text-center"\cf0 \strokec4 >\cb1 \
+\cb3                 <h3 className=\cf6 \strokec6 "text-xl text-white font-medium"\cf0 \strokec4 >\{selectedImage.title\}</h3>\cb1 \
+\cb3                 <p className=\cf6 \strokec6 "text-gray-400 capitalize"\cf0 \strokec4 >\{selectedImage.category?.replace(\cf6 \strokec6 '_'\cf0 \strokec4 , \cf6 \strokec6 ' '\cf0 \strokec4 )\}</p>\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </motion.div>\cb1 \
+\
+\cb3             \{\cf8 \strokec8 /* Slideshow controls */\cf0 \strokec4 \}\cb1 \
+\cb3             <div className=\cf6 \strokec6 "absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4"\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 Button\cf0 \cb1 \strokec4 \
+\cb3                 variant=\cf6 \strokec6 "ghost"\cf0 \cb1 \strokec4 \
+\cb3                 onClick=\{(e) => \{ e.stopPropagation(); setIsSlideshow(!isSlideshow); \}\}\cb1 \
+\cb3                 className=\cf6 \strokec6 "text-white hover:bg-white/20"\cf0 \cb1 \strokec4 \
+\cb3               >\cb1 \
+\cb3                 \{isSlideshow ? <\cf5 \strokec5 Pause\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5 mr-2"\cf0 \strokec4  /> : <\cf5 \strokec5 Play\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5 mr-2"\cf0 \strokec4  />\}\cb1 \
+\cb3                 \{isSlideshow ? \cf6 \strokec6 'Pause'\cf0 \strokec4  : \cf6 \strokec6 'Diaporama'\cf0 \strokec4 \}\cb1 \
+\cb3               </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3               <div className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cb1 \
+\cb3                 \{filteredImages.findIndex(img => img.id === selectedImage.id) + \cf7 \strokec7 1\cf0 \strokec4 \} / \{filteredImages.length\}\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </div>\cb1 \
+\cb3           </motion.div>\cb1 \
+\cb3         )\}\cb1 \
+\cb3       </\cf5 \strokec5 AnimatePresence\cf0 \strokec4 >\cb1 \
+\cb3     </div>\cb1 \
+\cb3   );\cb1 \
+\cb3 \}\cb1 \
+}

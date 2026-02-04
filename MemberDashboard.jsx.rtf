@@ -1,0 +1,494 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red255\green255\blue254;\red0\green0\blue0;
+\red14\green110\blue109;\red144\green1\blue18;\red19\green118\blue70;\red15\green112\blue1;\red191\green28\blue37;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c100000;\cssrgb\c100000\c100000\c99608;\cssrgb\c0\c0\c0;
+\cssrgb\c0\c50196\c50196;\cssrgb\c63922\c8235\c8235;\cssrgb\c3529\c52549\c34510;\cssrgb\c0\c50196\c0;\cssrgb\c80392\c19216\c19216;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 React\cf0 \strokec4 , \{ useState, useEffect \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'react'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ motion \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'framer-motion'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ useQuery, useMutation, useQueryClient \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@tanstack/react-query'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ base44 \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/api/base44Client'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ format, parseISO, isFuture, isPast \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'date-fns'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ fr \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'date-fns/locale'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \cf5 \strokec5 User\cf0 \strokec4 , \cf5 \strokec5 Calendar\cf0 \strokec4 , \cf5 \strokec5 FileText\cf0 \strokec4 , \cf5 \strokec5 Settings\cf0 \strokec4 , \cf5 \strokec5 LogOut\cf0 \strokec4 , \cf5 \strokec5 Target\cf0 \strokec4 ,\cb1 \
+\cb3   \cf5 \strokec5 Clock\cf0 \strokec4 , \cf5 \strokec5 MapPin\cf0 \strokec4 , \cf5 \strokec5 Download\cf0 \strokec4 , \cf5 \strokec5 Eye\cf0 \strokec4 , \cf5 \strokec5 X\cf0 \strokec4 , \cf5 \strokec5 CheckCircle\cf0 \strokec4 , \cf5 \strokec5 XCircle\cf0 \strokec4 ,\cb1 \
+\cb3   \cf5 \strokec5 Loader2\cf0 \strokec4 , \cf5 \strokec5 CreditCard\cf0 \strokec4 , \cf5 \strokec5 Bell\cf0 \strokec4 , \cf5 \strokec5 ChevronRight\cf0 \cb1 \strokec4 \
+\cb3 \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'lucide-react'\cf0 \strokec4 ;\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Button\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/button'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Card\cf0 \strokec4 , \cf5 \strokec5 CardContent\cf0 \strokec4 , \cf5 \strokec5 CardHeader\cf0 \strokec4 , \cf5 \strokec5 CardTitle\cf0 \strokec4 , \cf5 \strokec5 CardDescription\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/card'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Tabs\cf0 \strokec4 , \cf5 \strokec5 TabsContent\cf0 \strokec4 , \cf5 \strokec5 TabsList\cf0 \strokec4 , \cf5 \strokec5 TabsTrigger\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/tabs'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Badge\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/badge'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Dialog\cf0 \strokec4 , \cf5 \strokec5 DialogContent\cf0 \strokec4 , \cf5 \strokec5 DialogHeader\cf0 \strokec4 , \cf5 \strokec5 DialogTitle\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/dialog'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Skeleton\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/skeleton'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ toast \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'sonner'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Link\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'react-router-dom'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ createPageUrl \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/utils'\cf0 \strokec4 ;\cb1 \
+\
+\cf2 \cb3 \strokec2 const\cf0 \strokec4  statusColors = \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   confirmed: \cf6 \strokec6 'bg-green-600'\cf0 \strokec4 ,\cb1 \
+\cb3   pending: \cf6 \strokec6 'bg-yellow-600'\cf0 \strokec4 ,\cb1 \
+\cb3   cancelled: \cf6 \strokec6 'bg-red-600'\cf0 \strokec4 ,\cb1 \
+\cb3   paid: \cf6 \strokec6 'bg-green-600'\cf0 \strokec4 ,\cb1 \
+\cb3   overdue: \cf6 \strokec6 'bg-red-600'\cf0 \strokec4 ,\cb1 \
+\cb3 \};\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 export\cf0 \strokec4  \cf2 \strokec2 default\cf0 \strokec4  \cf2 \strokec2 function\cf0 \strokec4  \cf5 \strokec5 MemberDashboard\cf0 \strokec4 () \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \cf2 \strokec2 const\cf0 \strokec4  [user, setUser] = useState(\cf2 \strokec2 null\cf0 \strokec4 );\cb1 \
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  [loading, setLoading] = useState(\cf2 \strokec2 true\cf0 \strokec4 );\cb1 \
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  [selectedInvoice, setSelectedInvoice] = useState(\cf2 \strokec2 null\cf0 \strokec4 );\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  queryClient = useQueryClient();\cb1 \
+\
+\cb3   useEffect(() => \{\cb1 \
+\cb3     \cf2 \strokec2 const\cf0 \strokec4  loadUser = \cf2 \strokec2 async\cf0 \strokec4  () => \{\cb1 \
+\cb3       \cf2 \strokec2 try\cf0 \strokec4  \{\cb1 \
+\cb3         \cf2 \strokec2 const\cf0 \strokec4  currentUser = \cf2 \strokec2 await\cf0 \strokec4  base44.auth.me();\cb1 \
+\cb3         setUser(currentUser);\cb1 \
+\cb3       \} \cf2 \strokec2 catch\cf0 \strokec4  \{\cb1 \
+\cb3         base44.auth.redirectToLogin();\cb1 \
+\cb3       \} \cf2 \strokec2 finally\cf0 \strokec4  \{\cb1 \
+\cb3         setLoading(\cf2 \strokec2 false\cf0 \strokec4 );\cb1 \
+\cb3       \}\cb1 \
+\cb3     \};\cb1 \
+\cb3     loadUser();\cb1 \
+\cb3   \}, []);\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  \{ data: bookings = [], isLoading: bookingsLoading \} = useQuery(\{\cb1 \
+\cb3     queryKey: [\cf6 \strokec6 'my-bookings'\cf0 \strokec4 , user?.email],\cb1 \
+\cb3     queryFn: () => base44.entities.\cf5 \strokec5 Booking\cf0 \strokec4 .filter(\{ member_email: user?.email \}),\cb1 \
+\cb3     enabled: !!user?.email,\cb1 \
+\cb3   \});\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  \{ data: invoices = [], isLoading: invoicesLoading \} = useQuery(\{\cb1 \
+\cb3     queryKey: [\cf6 \strokec6 'my-invoices'\cf0 \strokec4 , user?.email],\cb1 \
+\cb3     queryFn: () => base44.entities.\cf5 \strokec5 Invoice\cf0 \strokec4 .filter(\{ member_email: user?.email \}),\cb1 \
+\cb3     enabled: !!user?.email,\cb1 \
+\cb3   \});\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  \{ data: memberData \} = useQuery(\{\cb1 \
+\cb3     queryKey: [\cf6 \strokec6 'member-data'\cf0 \strokec4 , user?.email],\cb1 \
+\cb3     queryFn: () => base44.entities.\cf5 \strokec5 Member\cf0 \strokec4 .filter(\{ email: user?.email \}),\cb1 \
+\cb3     enabled: !!user?.email,\cb1 \
+\cb3   \});\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  member = memberData?.[\cf7 \strokec7 0\cf0 \strokec4 ];\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  cancelBookingMutation = useMutation(\{\cb1 \
+\cb3     mutationFn: (id) => base44.entities.\cf5 \strokec5 Booking\cf0 \strokec4 .update(id, \{ status: \cf6 \strokec6 'cancelled'\cf0 \strokec4  \}),\cb1 \
+\cb3     onSuccess: () => \{\cb1 \
+\cb3       queryClient.invalidateQueries(\{ queryKey: [\cf6 \strokec6 'my-bookings'\cf0 \strokec4 ] \});\cb1 \
+\cb3       toast.success(\cf6 \strokec6 'R\'e9servation annul\'e9e'\cf0 \strokec4 );\cb1 \
+\cb3     \},\cb1 \
+\cb3   \});\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  upcomingBookings = bookings\cb1 \
+\cb3     .filter(b => b.status !== \cf6 \strokec6 'cancelled'\cf0 \strokec4  && isFuture(parseISO(b.date)))\cb1 \
+\cb3     .sort((a, b) => \cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 (a.date) - \cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 (b.date));\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  pastBookings = bookings\cb1 \
+\cb3     .filter(b => isPast(parseISO(b.date)))\cb1 \
+\cb3     .sort((a, b) => \cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 (b.date) - \cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 (a.date));\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  pendingInvoices = invoices.filter(i => i.status === \cf6 \strokec6 'pending'\cf0 \strokec4  || i.status === \cf6 \strokec6 'overdue'\cf0 \strokec4 );\cb1 \
+\
+\cb3   \cf2 \strokec2 if\cf0 \strokec4  (loading) \{\cb1 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  (\cb1 \
+\cb3       <div className=\cf6 \strokec6 "bg-black min-h-screen pt-20 flex items-center justify-center"\cf0 \strokec4 >\cb1 \
+\cb3         <\cf5 \strokec5 Loader2\cf0 \strokec4  className=\cf6 \strokec6 "w-8 h-8 text-red-500 animate-spin"\cf0 \strokec4  />\cb1 \
+\cb3       </div>\cb1 \
+\cb3     );\cb1 \
+\cb3   \}\cb1 \
+\
+\cb3   \cf2 \strokec2 if\cf0 \strokec4  (!user) \{\cb1 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  \cf2 \strokec2 null\cf0 \strokec4 ;\cb1 \
+\cb3   \}\cb1 \
+\
+\cb3   \cf2 \strokec2 return\cf0 \strokec4  (\cb1 \
+\cb3     <div className=\cf6 \strokec6 "bg-black min-h-screen pt-20"\cf0 \strokec4 >\cb1 \
+\cb3       \{\cf8 \strokec8 /* Header */\cf0 \strokec4 \}\cb1 \
+\cb3       <section className=\cf6 \strokec6 "py-12 border-b border-zinc-800"\cf0 \strokec4 >\cb1 \
+\cb3         <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec4 >\cb1 \
+\cb3           <motion.div\cb1 \
+\cb3             initial=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4 , y: \cf7 \strokec7 20\cf0 \strokec4  \}\}\cb1 \
+\cb3             animate=\{\{ opacity: \cf7 \strokec7 1\cf0 \strokec4 , y: \cf7 \strokec7 0\cf0 \strokec4  \}\}\cb1 \
+\cb3             className=\cf6 \strokec6 "flex flex-col md:flex-row md:items-center justify-between gap-6"\cf0 \cb1 \strokec4 \
+\cb3           >\cb1 \
+\cb3             <div className=\cf6 \strokec6 "flex items-center gap-4"\cf0 \strokec4 >\cb1 \
+\cb3               <div className=\cf6 \strokec6 "w-16 h-16 rounded-2xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center"\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 User\cf0 \strokec4  className=\cf6 \strokec6 "w-8 h-8 text-white"\cf0 \strokec4  />\cb1 \
+\cb3               </div>\cb1 \
+\cb3               <div>\cb1 \
+\cb3                 <h1 className=\cf6 \strokec6 "text-2xl md:text-3xl font-bold text-white"\cf0 \strokec4 >\cb1 \
+\cb3                   \cf5 \strokec5 Bonjour\cf0 \strokec4 , \{user.full_name || \cf6 \strokec6 'Membre'\cf0 \strokec4 \}\cb1 \
+\cb3                 </h1>\cb1 \
+\cb3                 <p className=\cf6 \strokec6 "text-gray-400"\cf0 \strokec4 >\{user.email\}</p>\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </div>\cb1 \
+\
+\cb3             <div className=\cf6 \strokec6 "flex gap-3"\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 Link\cf0 \strokec4  to=\{createPageUrl(\cf6 \strokec6 'Bookings'\cf0 \strokec4 )\}>\cb1 \
+\cb3                 <\cf5 \strokec5 Button\cf0 \strokec4  className=\cf6 \strokec6 "bg-red-600 hover:bg-red-700"\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 Calendar\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-2"\cf0 \strokec4  />\cb1 \
+\cb3                   \cf5 \strokec5 Nouvelle\cf0 \strokec4  r\cf9 \strokec9 \'e9\cf0 \strokec4 servation\cb1 \
+\cb3                 </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3               </\cf5 \strokec5 Link\cf0 \strokec4 >\cb1 \
+\cb3             </div>\cb1 \
+\cb3           </motion.div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf8 \strokec8 /* Stats */\cf0 \strokec4 \}\cb1 \
+\cb3       <section className=\cf6 \strokec6 "py-8"\cf0 \strokec4 >\cb1 \
+\cb3         <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec4 >\cb1 \
+\cb3           <div className=\cf6 \strokec6 "grid grid-cols-2 md:grid-cols-4 gap-4"\cf0 \strokec4 >\cb1 \
+\cb3             \{[\cb1 \
+\cb3               \{ label: \cf6 \strokec6 'R\'e9servations \'e0 venir'\cf0 \strokec4 , value: upcomingBookings.length, icon: \cf5 \strokec5 Calendar\cf0 \strokec4 , color: \cf6 \strokec6 'text-blue-500'\cf0 \strokec4  \},\cb1 \
+\cb3               \{ label: \cf6 \strokec6 'Factures en attente'\cf0 \strokec4 , value: pendingInvoices.length, icon: \cf5 \strokec5 FileText\cf0 \strokec4 , color: \cf6 \strokec6 'text-yellow-500'\cf0 \strokec4  \},\cb1 \
+\cb3               \{ label: \cf6 \strokec6 'S\'e9ances ce mois'\cf0 \strokec4 , value: bookings.filter(b => b.status === \cf6 \strokec6 'confirmed'\cf0 \strokec4 ).length, icon: \cf5 \strokec5 Target\cf0 \strokec4 , color: \cf6 \strokec6 'text-green-500'\cf0 \strokec4  \},\cb1 \
+\cb3               \{ label: \cf6 \strokec6 'Statut'\cf0 \strokec4 , value: member?.membership_status || \cf6 \strokec6 'Actif'\cf0 \strokec4 , icon: \cf5 \strokec5 CheckCircle\cf0 \strokec4 , color: \cf6 \strokec6 'text-red-500'\cf0 \strokec4 , isText: \cf2 \strokec2 true\cf0 \strokec4  \},\cb1 \
+\cb3             ].map((stat, i) => (\cb1 \
+\cb3               <motion.div\cb1 \
+\cb3                 key=\{i\}\cb1 \
+\cb3                 initial=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4 , y: \cf7 \strokec7 20\cf0 \strokec4  \}\}\cb1 \
+\cb3                 animate=\{\{ opacity: \cf7 \strokec7 1\cf0 \strokec4 , y: \cf7 \strokec7 0\cf0 \strokec4  \}\}\cb1 \
+\cb3                 transition=\{\{ delay: i * \cf7 \strokec7 0.1\cf0 \strokec4  \}\}\cb1 \
+\cb3               >\cb1 \
+\cb3                 <\cf5 \strokec5 Card\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-900 border-zinc-800"\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 CardContent\cf0 \strokec4  className=\cf6 \strokec6 "p-6"\cf0 \strokec4 >\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "flex items-center justify-between"\cf0 \strokec4 >\cb1 \
+\cb3                       <stat.icon className=\{\cf6 \strokec6 `w-8 h-8 \cf0 \strokec4 $\{stat.color\}\cf6 \strokec6 `\cf0 \strokec4 \} />\cb1 \
+\cb3                       <span className=\{\cf6 \strokec6 `text-3xl font-bold text-white`\cf0 \strokec4 \}>\cb1 \
+\cb3                         \{stat.isText ? \cf6 \strokec6 ''\cf0 \strokec4  : stat.value\}\cb1 \
+\cb3                       </span>\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                     <p className=\cf6 \strokec6 "text-gray-400 mt-2 text-sm"\cf0 \strokec4 >\{stat.label\}</p>\cb1 \
+\cb3                     \{stat.isText && <p className=\cf6 \strokec6 "text-white font-semibold capitalize"\cf0 \strokec4 >\{stat.value\}</p>\}\cb1 \
+\cb3                   </\cf5 \strokec5 CardContent\cf0 \strokec4 >\cb1 \
+\cb3                 </\cf5 \strokec5 Card\cf0 \strokec4 >\cb1 \
+\cb3               </motion.div>\cb1 \
+\cb3             ))\}\cb1 \
+\cb3           </div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf8 \strokec8 /* Main Content */\cf0 \strokec4 \}\cb1 \
+\cb3       <section className=\cf6 \strokec6 "pb-24"\cf0 \strokec4 >\cb1 \
+\cb3         <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec4 >\cb1 \
+\cb3           <\cf5 \strokec5 Tabs\cf0 \strokec4  defaultValue=\cf6 \strokec6 "bookings"\cf0 \strokec4  className=\cf6 \strokec6 "w-full"\cf0 \strokec4 >\cb1 \
+\cb3             <\cf5 \strokec5 TabsList\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-900 border border-zinc-800 p-1 mb-8"\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 TabsTrigger\cf0 \strokec4  value=\cf6 \strokec6 "bookings"\cf0 \strokec4  className=\cf6 \strokec6 "data-[state=active]:bg-red-600"\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 Calendar\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-2"\cf0 \strokec4  />\cb1 \
+\cb3                 \cf5 \strokec5 Mes\cf0 \strokec4  \cf5 \strokec5 R\cf9 \strokec9 \'e9\cf0 \strokec4 servations\cb1 \
+\cb3               </\cf5 \strokec5 TabsTrigger\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 TabsTrigger\cf0 \strokec4  value=\cf6 \strokec6 "invoices"\cf0 \strokec4  className=\cf6 \strokec6 "data-[state=active]:bg-red-600"\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 FileText\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-2"\cf0 \strokec4  />\cb1 \
+\cb3                 \cf5 \strokec5 Mes\cf0 \strokec4  \cf5 \strokec5 Factures\cf0 \cb1 \strokec4 \
+\cb3               </\cf5 \strokec5 TabsTrigger\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 TabsTrigger\cf0 \strokec4  value=\cf6 \strokec6 "profile"\cf0 \strokec4  className=\cf6 \strokec6 "data-[state=active]:bg-red-600"\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 User\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-2"\cf0 \strokec4  />\cb1 \
+\cb3                 \cf5 \strokec5 Mon\cf0 \strokec4  \cf5 \strokec5 Profil\cf0 \cb1 \strokec4 \
+\cb3               </\cf5 \strokec5 TabsTrigger\cf0 \strokec4 >\cb1 \
+\cb3             </\cf5 \strokec5 TabsList\cf0 \strokec4 >\cb1 \
+\
+\cb3             \{\cf8 \strokec8 /* Bookings Tab */\cf0 \strokec4 \}\cb1 \
+\cb3             <\cf5 \strokec5 TabsContent\cf0 \strokec4  value=\cf6 \strokec6 "bookings"\cf0 \strokec4 >\cb1 \
+\cb3               <div className=\cf6 \strokec6 "space-y-8"\cf0 \strokec4 >\cb1 \
+\cb3                 \{\cf8 \strokec8 /* Upcoming */\cf0 \strokec4 \}\cb1 \
+\cb3                 <div>\cb1 \
+\cb3                   <h2 className=\cf6 \strokec6 "text-xl font-semibold text-white mb-4 flex items-center gap-2"\cf0 \strokec4 >\cb1 \
+\cb3                     <\cf5 \strokec5 Calendar\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5 text-red-500"\cf0 \strokec4  />\cb1 \
+\cb3                     \cf5 \strokec5 R\cf9 \strokec9 \'e9\cf0 \strokec4 servations \cf9 \strokec9 \'e0\cf0 \strokec4  venir\cb1 \
+\cb3                   </h2>\cb1 \
+\cb3                   \{bookingsLoading ? (\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "space-y-3"\cf0 \strokec4 >\cb1 \
+\cb3                       \{[\cf7 \strokec7 1\cf0 \strokec4 , \cf7 \strokec7 2\cf0 \strokec4 ].map(i => <\cf5 \strokec5 Skeleton\cf0 \strokec4  key=\{i\} className=\cf6 \strokec6 "h-24 bg-zinc-800"\cf0 \strokec4  />)\}\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                   ) : upcomingBookings.length === \cf7 \strokec7 0\cf0 \strokec4  ? (\cb1 \
+\cb3                     <\cf5 \strokec5 Card\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-900 border-zinc-800"\cf0 \strokec4 >\cb1 \
+\cb3                       <\cf5 \strokec5 CardContent\cf0 \strokec4  className=\cf6 \strokec6 "py-12 text-center"\cf0 \strokec4 >\cb1 \
+\cb3                         <\cf5 \strokec5 Calendar\cf0 \strokec4  className=\cf6 \strokec6 "w-12 h-12 text-gray-600 mx-auto mb-4"\cf0 \strokec4  />\cb1 \
+\cb3                         <p className=\cf6 \strokec6 "text-gray-400"\cf0 \strokec4 >\cf5 \strokec5 Aucune\cf0 \strokec4  r\cf9 \strokec9 \'e9\cf0 \strokec4 servation \cf9 \strokec9 \'e0\cf0 \strokec4  venir</p>\cb1 \
+\cb3                         <\cf5 \strokec5 Link\cf0 \strokec4  to=\{createPageUrl(\cf6 \strokec6 'Bookings'\cf0 \strokec4 )\}>\cb1 \
+\cb3                           <\cf5 \strokec5 Button\cf0 \strokec4  className=\cf6 \strokec6 "mt-4 bg-red-600 hover:bg-red-700"\cf0 \strokec4 >\cb1 \
+\cb3                             \cf5 \strokec5 R\cf9 \strokec9 \'e9\cf0 \strokec4 server maintenant\cb1 \
+\cb3                           </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3                         </\cf5 \strokec5 Link\cf0 \strokec4 >\cb1 \
+\cb3                       </\cf5 \strokec5 CardContent\cf0 \strokec4 >\cb1 \
+\cb3                     </\cf5 \strokec5 Card\cf0 \strokec4 >\cb1 \
+\cb3                   ) : (\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "space-y-3"\cf0 \strokec4 >\cb1 \
+\cb3                       \{upcomingBookings.map((booking) => (\cb1 \
+\cb3                         <\cf5 \strokec5 Card\cf0 \strokec4  key=\{booking.id\} className=\cf6 \strokec6 "bg-zinc-900 border-zinc-800 hover:border-zinc-700 transition-colors"\cf0 \strokec4 >\cb1 \
+\cb3                           <\cf5 \strokec5 CardContent\cf0 \strokec4  className=\cf6 \strokec6 "p-6"\cf0 \strokec4 >\cb1 \
+\cb3                             <div className=\cf6 \strokec6 "flex flex-col md:flex-row md:items-center justify-between gap-4"\cf0 \strokec4 >\cb1 \
+\cb3                               <div className=\cf6 \strokec6 "flex items-start gap-4"\cf0 \strokec4 >\cb1 \
+\cb3                                 <div className=\cf6 \strokec6 "w-14 h-14 rounded-xl bg-red-600/20 flex flex-col items-center justify-center"\cf0 \strokec4 >\cb1 \
+\cb3                                   <span className=\cf6 \strokec6 "text-red-500 text-xs font-medium"\cf0 \strokec4 >\cb1 \
+\cb3                                     \{format(parseISO(booking.date), \cf6 \strokec6 'MMM'\cf0 \strokec4 , \{ locale: fr \})\}\cb1 \
+\cb3                                   </span>\cb1 \
+\cb3                                   <span className=\cf6 \strokec6 "text-white text-xl font-bold"\cf0 \strokec4 >\cb1 \
+\cb3                                     \{format(parseISO(booking.date), \cf6 \strokec6 'd'\cf0 \strokec4 )\}\cb1 \
+\cb3                                   </span>\cb1 \
+\cb3                                 </div>\cb1 \
+\cb3                                 <div>\cb1 \
+\cb3                                   <div className=\cf6 \strokec6 "flex items-center gap-2"\cf0 \strokec4 >\cb1 \
+\cb3                                     <h3 className=\cf6 \strokec6 "font-semibold text-white"\cf0 \strokec4 >\cb1 \
+\cb3                                       \{format(parseISO(booking.date), \cf6 \strokec6 'EEEE'\cf0 \strokec4 , \{ locale: fr \})\}\cb1 \
+\cb3                                     </h3>\cb1 \
+\cb3                                     <\cf5 \strokec5 Badge\cf0 \strokec4  className=\{statusColors[booking.status]\}>\cb1 \
+\cb3                                       \{booking.status === \cf6 \strokec6 'confirmed'\cf0 \strokec4  ? \cf6 \strokec6 'Confirm\'e9'\cf0 \strokec4  : \cf6 \strokec6 'En attente'\cf0 \strokec4 \}\cb1 \
+\cb3                                     </\cf5 \strokec5 Badge\cf0 \strokec4 >\cb1 \
+\cb3                                   </div>\cb1 \
+\cb3                                   <div className=\cf6 \strokec6 "flex items-center gap-4 mt-1 text-gray-400 text-sm"\cf0 \strokec4 >\cb1 \
+\cb3                                     <span className=\cf6 \strokec6 "flex items-center gap-1"\cf0 \strokec4 >\cb1 \
+\cb3                                       <\cf5 \strokec5 Clock\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4"\cf0 \strokec4  />\cb1 \
+\cb3                                       \{booking.time_slot\}\cb1 \
+\cb3                                     </span>\cb1 \
+\cb3                                     <span className=\cf6 \strokec6 "capitalize"\cf0 \strokec4 >\cb1 \
+\cb3                                       \{booking.activity_type?.replace(\cf6 \strokec6 '_'\cf0 \strokec4 , \cf6 \strokec6 ' '\cf0 \strokec4 )\}\cb1 \
+\cb3                                     </span>\cb1 \
+\cb3                                   </div>\cb1 \
+\cb3                                 </div>\cb1 \
+\cb3                               </div>\cb1 \
+\cb3                               <\cf5 \strokec5 Button\cf0 \cb1 \strokec4 \
+\cb3                                 variant=\cf6 \strokec6 "outline"\cf0 \cb1 \strokec4 \
+\cb3                                 size=\cf6 \strokec6 "sm"\cf0 \cb1 \strokec4 \
+\cb3                                 onClick=\{() => cancelBookingMutation.mutate(booking.id)\}\cb1 \
+\cb3                                 disabled=\{cancelBookingMutation.isPending\}\cb1 \
+\cb3                                 className=\cf6 \strokec6 "border-red-600/50 text-red-400 hover:bg-red-600/20 hover:text-red-300"\cf0 \cb1 \strokec4 \
+\cb3                               >\cb1 \
+\cb3                                 <\cf5 \strokec5 X\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-1"\cf0 \strokec4  />\cb1 \
+\cb3                                 \cf5 \strokec5 Annuler\cf0 \cb1 \strokec4 \
+\cb3                               </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3                             </div>\cb1 \
+\cb3                           </\cf5 \strokec5 CardContent\cf0 \strokec4 >\cb1 \
+\cb3                         </\cf5 \strokec5 Card\cf0 \strokec4 >\cb1 \
+\cb3                       ))\}\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                   )\}\cb1 \
+\cb3                 </div>\cb1 \
+\
+\cb3                 \{\cf8 \strokec8 /* Past */\cf0 \strokec4 \}\cb1 \
+\cb3                 \{pastBookings.length > \cf7 \strokec7 0\cf0 \strokec4  && (\cb1 \
+\cb3                   <div>\cb1 \
+\cb3                     <h2 className=\cf6 \strokec6 "text-xl font-semibold text-white mb-4 flex items-center gap-2"\cf0 \strokec4 >\cb1 \
+\cb3                       <\cf5 \strokec5 Clock\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5 text-gray-500"\cf0 \strokec4  />\cb1 \
+\cb3                       \cf5 \strokec5 Historique\cf0 \cb1 \strokec4 \
+\cb3                     </h2>\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "space-y-2"\cf0 \strokec4 >\cb1 \
+\cb3                       \{pastBookings.slice(\cf7 \strokec7 0\cf0 \strokec4 , \cf7 \strokec7 5\cf0 \strokec4 ).map((booking) => (\cb1 \
+\cb3                         <div \cb1 \
+\cb3                           key=\{booking.id\} \cb1 \
+\cb3                           className=\cf6 \strokec6 "flex items-center justify-between p-4 bg-zinc-900/50 rounded-xl border border-zinc-800"\cf0 \cb1 \strokec4 \
+\cb3                         >\cb1 \
+\cb3                           <div className=\cf6 \strokec6 "flex items-center gap-3"\cf0 \strokec4 >\cb1 \
+\cb3                             <span className=\cf6 \strokec6 "text-gray-400"\cf0 \strokec4 >\cb1 \
+\cb3                               \{format(parseISO(booking.date), \cf6 \strokec6 'd MMM yyyy'\cf0 \strokec4 , \{ locale: fr \})\}\cb1 \
+\cb3                             </span>\cb1 \
+\cb3                             <span className=\cf6 \strokec6 "text-white"\cf0 \strokec4 >\{booking.time_slot\}</span>\cb1 \
+\cb3                           </div>\cb1 \
+\cb3                           <\cf5 \strokec5 Badge\cf0 \strokec4  variant=\cf6 \strokec6 "outline"\cf0 \strokec4  className=\{\cf6 \strokec6 `border-zinc-700 \cf0 \strokec4 $\{\cb1 \
+\cb3                             booking.status === \cf6 \strokec6 'cancelled'\cf0 \strokec4  ? \cf6 \strokec6 'text-red-400'\cf0 \strokec4  : \cf6 \strokec6 'text-gray-400'\cf0 \cb1 \strokec4 \
+\cb3                           \}\cf6 \strokec6 `\cf0 \strokec4 \}>\cb1 \
+\cb3                             \{booking.status === \cf6 \strokec6 'cancelled'\cf0 \strokec4  ? \cf6 \strokec6 'Annul\'e9'\cf0 \strokec4  : \cf6 \strokec6 'Termin\'e9'\cf0 \strokec4 \}\cb1 \
+\cb3                           </\cf5 \strokec5 Badge\cf0 \strokec4 >\cb1 \
+\cb3                         </div>\cb1 \
+\cb3                       ))\}\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 )\}\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </\cf5 \strokec5 TabsContent\cf0 \strokec4 >\cb1 \
+\
+\cb3             \{\cf8 \strokec8 /* Invoices Tab */\cf0 \strokec4 \}\cb1 \
+\cb3             <\cf5 \strokec5 TabsContent\cf0 \strokec4  value=\cf6 \strokec6 "invoices"\cf0 \strokec4 >\cb1 \
+\cb3               <div className=\cf6 \strokec6 "space-y-4"\cf0 \strokec4 >\cb1 \
+\cb3                 \{invoicesLoading ? (\cb1 \
+\cb3                   <div className=\cf6 \strokec6 "space-y-3"\cf0 \strokec4 >\cb1 \
+\cb3                     \{[\cf7 \strokec7 1\cf0 \strokec4 , \cf7 \strokec7 2\cf0 \strokec4 , \cf7 \strokec7 3\cf0 \strokec4 ].map(i => <\cf5 \strokec5 Skeleton\cf0 \strokec4  key=\{i\} className=\cf6 \strokec6 "h-20 bg-zinc-800"\cf0 \strokec4  />)\}\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 ) : invoices.length === \cf7 \strokec7 0\cf0 \strokec4  ? (\cb1 \
+\cb3                   <\cf5 \strokec5 Card\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-900 border-zinc-800"\cf0 \strokec4 >\cb1 \
+\cb3                     <\cf5 \strokec5 CardContent\cf0 \strokec4  className=\cf6 \strokec6 "py-12 text-center"\cf0 \strokec4 >\cb1 \
+\cb3                       <\cf5 \strokec5 FileText\cf0 \strokec4  className=\cf6 \strokec6 "w-12 h-12 text-gray-600 mx-auto mb-4"\cf0 \strokec4  />\cb1 \
+\cb3                       <p className=\cf6 \strokec6 "text-gray-400"\cf0 \strokec4 >\cf5 \strokec5 Aucune\cf0 \strokec4  facture</p>\cb1 \
+\cb3                     </\cf5 \strokec5 CardContent\cf0 \strokec4 >\cb1 \
+\cb3                   </\cf5 \strokec5 Card\cf0 \strokec4 >\cb1 \
+\cb3                 ) : (\cb1 \
+\cb3                   invoices.map((invoice) => (\cb1 \
+\cb3                     <\cf5 \strokec5 Card\cf0 \strokec4  \cb1 \
+\cb3                       key=\{invoice.id\} \cb1 \
+\cb3                       className=\cf6 \strokec6 "bg-zinc-900 border-zinc-800 hover:border-zinc-700 transition-colors cursor-pointer"\cf0 \cb1 \strokec4 \
+\cb3                       onClick=\{() => setSelectedInvoice(invoice)\}\cb1 \
+\cb3                     >\cb1 \
+\cb3                       <\cf5 \strokec5 CardContent\cf0 \strokec4  className=\cf6 \strokec6 "p-6"\cf0 \strokec4 >\cb1 \
+\cb3                         <div className=\cf6 \strokec6 "flex flex-col md:flex-row md:items-center justify-between gap-4"\cf0 \strokec4 >\cb1 \
+\cb3                           <div>\cb1 \
+\cb3                             <div className=\cf6 \strokec6 "flex items-center gap-3"\cf0 \strokec4 >\cb1 \
+\cb3                               <h3 className=\cf6 \strokec6 "font-semibold text-white"\cf0 \strokec4 >\{invoice.invoice_number\}</h3>\cb1 \
+\cb3                               <\cf5 \strokec5 Badge\cf0 \strokec4  className=\{statusColors[invoice.status]\}>\cb1 \
+\cb3                                 \{invoice.status === \cf6 \strokec6 'paid'\cf0 \strokec4  ? \cf6 \strokec6 'Pay\'e9'\cf0 \strokec4  : invoice.status === \cf6 \strokec6 'overdue'\cf0 \strokec4  ? \cf6 \strokec6 'En retard'\cf0 \strokec4  : \cf6 \strokec6 'En attente'\cf0 \strokec4 \}\cb1 \
+\cb3                               </\cf5 \strokec5 Badge\cf0 \strokec4 >\cb1 \
+\cb3                             </div>\cb1 \
+\cb3                             <p className=\cf6 \strokec6 "text-gray-400 text-sm mt-1"\cf0 \strokec4 >\{invoice.description\}</p>\cb1 \
+\cb3                             <p className=\cf6 \strokec6 "text-gray-500 text-xs mt-1"\cf0 \strokec4 >\cb1 \
+\cb3                               \cf9 \strokec9 \'c9\cf0 \strokec4 mise le \{format(parseISO(invoice.issue_date), \cf6 \strokec6 'd MMMM yyyy'\cf0 \strokec4 , \{ locale: fr \})\}\cb1 \
+\cb3                             </p>\cb1 \
+\cb3                           </div>\cb1 \
+\cb3                           <div className=\cf6 \strokec6 "flex items-center gap-4"\cf0 \strokec4 >\cb1 \
+\cb3                             <span className=\cf6 \strokec6 "text-2xl font-bold text-white"\cf0 \strokec4 >\cb1 \
+\cb3                               \cf5 \strokec5 CHF\cf0 \strokec4  \{invoice.amount?.toFixed(\cf7 \strokec7 2\cf0 \strokec4 )\}\cb1 \
+\cb3                             </span>\cb1 \
+\cb3                             <\cf5 \strokec5 Button\cf0 \strokec4  variant=\cf6 \strokec6 "outline"\cf0 \strokec4  size=\cf6 \strokec6 "sm"\cf0 \strokec4  className=\cf6 \strokec6 "border-zinc-700"\cf0 \strokec4 >\cb1 \
+\cb3                               <\cf5 \strokec5 Eye\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-1"\cf0 \strokec4  />\cb1 \
+\cb3                               \cf5 \strokec5 Voir\cf0 \cb1 \strokec4 \
+\cb3                             </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3                           </div>\cb1 \
+\cb3                         </div>\cb1 \
+\cb3                       </\cf5 \strokec5 CardContent\cf0 \strokec4 >\cb1 \
+\cb3                     </\cf5 \strokec5 Card\cf0 \strokec4 >\cb1 \
+\cb3                   ))\cb1 \
+\cb3                 )\}\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </\cf5 \strokec5 TabsContent\cf0 \strokec4 >\cb1 \
+\
+\cb3             \{\cf8 \strokec8 /* Profile Tab */\cf0 \strokec4 \}\cb1 \
+\cb3             <\cf5 \strokec5 TabsContent\cf0 \strokec4  value=\cf6 \strokec6 "profile"\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 Card\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-900 border-zinc-800"\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 CardHeader\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 CardTitle\cf0 \strokec4  className=\cf6 \strokec6 "text-white"\cf0 \strokec4 >\cf5 \strokec5 Informations\cf0 \strokec4  personnelles</\cf5 \strokec5 CardTitle\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 CardDescription\cf0 \strokec4 >\cf5 \strokec5 Vos\cf0 \strokec4  informations de membre</\cf5 \strokec5 CardDescription\cf0 \strokec4 >\cb1 \
+\cb3                 </\cf5 \strokec5 CardHeader\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 CardContent\cf0 \strokec4  className=\cf6 \strokec6 "space-y-6"\cf0 \strokec4 >\cb1 \
+\cb3                   <div className=\cf6 \strokec6 "grid md:grid-cols-2 gap-6"\cf0 \strokec4 >\cb1 \
+\cb3                     <div>\cb1 \
+\cb3                       <label className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cf5 \strokec5 Nom\cf0 \strokec4  complet</label>\cb1 \
+\cb3                       <p className=\cf6 \strokec6 "text-white font-medium mt-1"\cf0 \strokec4 >\{user.full_name || \cf6 \strokec6 '-'\cf0 \strokec4 \}</p>\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                     <div>\cb1 \
+\cb3                       <label className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cf5 \strokec5 Email\cf0 \strokec4 </label>\cb1 \
+\cb3                       <p className=\cf6 \strokec6 "text-white font-medium mt-1"\cf0 \strokec4 >\{user.email\}</p>\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                     \{member && (\cb1 \
+\cb3                       <>\cb1 \
+\cb3                         <div>\cb1 \
+\cb3                           <label className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cf5 \strokec5 T\cf9 \strokec9 \'e9\cf0 \strokec4 l\cf9 \strokec9 \'e9\cf0 \strokec4 phone</label>\cb1 \
+\cb3                           <p className=\cf6 \strokec6 "text-white font-medium mt-1"\cf0 \strokec4 >\{member.phone || \cf6 \strokec6 '-'\cf0 \strokec4 \}</p>\cb1 \
+\cb3                         </div>\cb1 \
+\cb3                         <div>\cb1 \
+\cb3                           <label className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cf5 \strokec5 Adresse\cf0 \strokec4 </label>\cb1 \
+\cb3                           <p className=\cf6 \strokec6 "text-white font-medium mt-1"\cf0 \strokec4 >\cb1 \
+\cb3                             \{member.address ? \cf6 \strokec6 `\cf0 \strokec4 $\{member.address\}\cf6 \strokec6 , \cf0 \strokec4 $\{member.postal_code\}\cf6 \strokec6  \cf0 \strokec4 $\{member.city\}\cf6 \strokec6 `\cf0 \strokec4  : \cf6 \strokec6 '-'\cf0 \strokec4 \}\cb1 \
+\cb3                           </p>\cb1 \
+\cb3                         </div>\cb1 \
+\cb3                         <div>\cb1 \
+\cb3                           <label className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cf5 \strokec5 Type\cf0 \strokec4  d\cf6 \strokec6 'adh\'e9sion</label>\cf0 \cb1 \strokec4 \
+\cb3                           <p className=\cf6 \strokec6 "text-white font-medium mt-1 capitalize"\cf0 \strokec4 >\{member.membership_type || \cf6 \strokec6 'Standard'\cf0 \strokec4 \}</p>\cb1 \
+\cb3                         </div>\cb1 \
+\cb3                         <div>\cb1 \
+\cb3                           <label className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cf5 \strokec5 Statut\cf0 \strokec4 </label>\cb1 \
+\cb3                           <\cf5 \strokec5 Badge\cf0 \strokec4  className=\{\cf6 \strokec6 `mt-1 \cf0 \strokec4 $\{\cb1 \
+\cb3                             member.membership_status === \cf6 \strokec6 'active'\cf0 \strokec4  ? \cf6 \strokec6 'bg-green-600'\cf0 \strokec4  : \cf6 \strokec6 'bg-yellow-600'\cf0 \cb1 \strokec4 \
+\cb3                           \}\cf6 \strokec6 `\cf0 \strokec4 \}>\cb1 \
+\cb3                             \{member.membership_status === \cf6 \strokec6 'active'\cf0 \strokec4  ? \cf6 \strokec6 'Actif'\cf0 \strokec4  : \cf6 \strokec6 'En attente'\cf0 \strokec4 \}\cb1 \
+\cb3                           </\cf5 \strokec5 Badge\cf0 \strokec4 >\cb1 \
+\cb3                         </div>\cb1 \
+\cb3                       </>\cb1 \
+\cb3                     )\}\cb1 \
+\cb3                   </div>\cb1 \
+\
+\cb3                   <div className=\cf6 \strokec6 "pt-6 border-t border-zinc-800"\cf0 \strokec4 >\cb1 \
+\cb3                     <\cf5 \strokec5 Button\cf0 \strokec4  \cb1 \
+\cb3                       variant=\cf6 \strokec6 "outline"\cf0 \strokec4  \cb1 \
+\cb3                       className=\cf6 \strokec6 "border-zinc-700 text-gray-400 hover:text-white"\cf0 \cb1 \strokec4 \
+\cb3                       onClick=\{() => base44.auth.logout()\}\cb1 \
+\cb3                     >\cb1 \
+\cb3                       <\cf5 \strokec5 LogOut\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-2"\cf0 \strokec4  />\cb1 \
+\cb3                       \cf5 \strokec5 Se\cf0 \strokec4  d\cf9 \strokec9 \'e9\cf0 \strokec4 connecter\cb1 \
+\cb3                     </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 </\cf5 \strokec5 CardContent\cf0 \strokec4 >\cb1 \
+\cb3               </\cf5 \strokec5 Card\cf0 \strokec4 >\cb1 \
+\cb3             </\cf5 \strokec5 TabsContent\cf0 \strokec4 >\cb1 \
+\cb3           </\cf5 \strokec5 Tabs\cf0 \strokec4 >\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf8 \strokec8 /* Invoice Detail Dialog */\cf0 \strokec4 \}\cb1 \
+\cb3       <\cf5 \strokec5 Dialog\cf0 \strokec4  open=\{!!selectedInvoice\} onOpenChange=\{() => setSelectedInvoice(\cf2 \strokec2 null\cf0 \strokec4 )\}>\cb1 \
+\cb3         <\cf5 \strokec5 DialogContent\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-900 border-zinc-800 text-white max-w-lg"\cf0 \strokec4 >\cb1 \
+\cb3           <\cf5 \strokec5 DialogHeader\cf0 \strokec4 >\cb1 \
+\cb3             <\cf5 \strokec5 DialogTitle\cf0 \strokec4  className=\cf6 \strokec6 "flex items-center gap-2"\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 FileText\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5 text-red-500"\cf0 \strokec4  />\cb1 \
+\cb3               \cf5 \strokec5 Facture\cf0 \strokec4  \{selectedInvoice?.invoice_number\}\cb1 \
+\cb3             </\cf5 \strokec5 DialogTitle\cf0 \strokec4 >\cb1 \
+\cb3           </\cf5 \strokec5 DialogHeader\cf0 \strokec4 >\cb1 \
+\cb3           \cb1 \
+\cb3           \{selectedInvoice && (\cb1 \
+\cb3             <div className=\cf6 \strokec6 "space-y-6"\cf0 \strokec4 >\cb1 \
+\cb3               <div className=\cf6 \strokec6 "bg-zinc-800/50 rounded-xl p-6 space-y-4"\cf0 \strokec4 >\cb1 \
+\cb3                 <div className=\cf6 \strokec6 "flex justify-between items-start"\cf0 \strokec4 >\cb1 \
+\cb3                   <div>\cb1 \
+\cb3                     <p className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cf5 \strokec5 Description\cf0 \strokec4 </p>\cb1 \
+\cb3                     <p className=\cf6 \strokec6 "text-white font-medium"\cf0 \strokec4 >\{selectedInvoice.description\}</p>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                   <\cf5 \strokec5 Badge\cf0 \strokec4  className=\{statusColors[selectedInvoice.status]\}>\cb1 \
+\cb3                     \{selectedInvoice.status === \cf6 \strokec6 'paid'\cf0 \strokec4  ? \cf6 \strokec6 'Pay\'e9'\cf0 \strokec4  : \cf6 \strokec6 'En attente'\cf0 \strokec4 \}\cb1 \
+\cb3                   </\cf5 \strokec5 Badge\cf0 \strokec4 >\cb1 \
+\cb3                 </div>\cb1 \
+\cb3                 \cb1 \
+\cb3                 <div className=\cf6 \strokec6 "grid grid-cols-2 gap-4"\cf0 \strokec4 >\cb1 \
+\cb3                   <div>\cb1 \
+\cb3                     <p className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cf5 \strokec5 Date\cf0 \strokec4  d\cf6 \strokec6 '\'e9mission</p>\cf0 \cb1 \strokec4 \
+\cb3                     <p className=\cf6 \strokec6 "text-white"\cf0 \strokec4 >\{format(parseISO(selectedInvoice.issue_date), \cf6 \strokec6 'd MMMM yyyy'\cf0 \strokec4 , \{ locale: fr \})\}</p>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                   <div>\cb1 \
+\cb3                     <p className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\cf5 \strokec5 Date\cf0 \strokec4  d\cf6 \strokec6 '\'e9ch\'e9ance</p>\cf0 \cb1 \strokec4 \
+\cb3                     <p className=\cf6 \strokec6 "text-white"\cf0 \strokec4 >\{format(parseISO(selectedInvoice.due_date), \cf6 \strokec6 'd MMMM yyyy'\cf0 \strokec4 , \{ locale: fr \})\}</p>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 </div>\cb1 \
+\
+\cb3                 <div className=\cf6 \strokec6 "pt-4 border-t border-zinc-700"\cf0 \strokec4 >\cb1 \
+\cb3                   <div className=\cf6 \strokec6 "flex justify-between items-center"\cf0 \strokec4 >\cb1 \
+\cb3                     <span className=\cf6 \strokec6 "text-gray-400"\cf0 \strokec4 >\cf5 \strokec5 Montant\cf0 \strokec4  total</span>\cb1 \
+\cb3                     <span className=\cf6 \strokec6 "text-3xl font-bold text-white"\cf0 \strokec4 >\cf5 \strokec5 CHF\cf0 \strokec4  \{selectedInvoice.amount?.toFixed(\cf7 \strokec7 2\cf0 \strokec4 )\}</span>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 </div>\cb1 \
+\cb3               </div>\cb1 \
+\
+\cb3               \{\cf8 \strokec8 /* QR Code placeholder */\cf0 \strokec4 \}\cb1 \
+\cb3               <div className=\cf6 \strokec6 "bg-white rounded-xl p-6 text-center"\cf0 \strokec4 >\cb1 \
+\cb3                 <p className=\cf6 \strokec6 "text-gray-600 text-sm mb-2"\cf0 \strokec4 >\cf5 \strokec5 QR\cf0 \strokec4 -facture suisse</p>\cb1 \
+\cb3                 <div className=\cf6 \strokec6 "w-40 h-40 mx-auto bg-gray-100 rounded-lg flex items-center justify-center"\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 CreditCard\cf0 \strokec4  className=\cf6 \strokec6 "w-12 h-12 text-gray-400"\cf0 \strokec4  />\cb1 \
+\cb3                 </div>\cb1 \
+\cb3                 <p className=\cf6 \strokec6 "text-gray-500 text-xs mt-2"\cf0 \strokec4 >\cb1 \
+\cb3                   \cf5 \strokec5 R\cf9 \strokec9 \'e9\cf0 \strokec4 f: \{selectedInvoice.qr_reference || selectedInvoice.invoice_number\}\cb1 \
+\cb3                 </p>\cb1 \
+\cb3               </div>\cb1 \
+\
+\cb3               <\cf5 \strokec5 Button\cf0 \strokec4  className=\cf6 \strokec6 "w-full bg-red-600 hover:bg-red-700"\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 Download\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-2"\cf0 \strokec4  />\cb1 \
+\cb3                 \cf5 \strokec5 T\cf9 \strokec9 \'e9\cf0 \strokec4 l\cf9 \strokec9 \'e9\cf0 \strokec4 charger \cf5 \strokec5 PDF\cf0 \cb1 \strokec4 \
+\cb3               </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3             </div>\cb1 \
+\cb3           )\}\cb1 \
+\cb3         </\cf5 \strokec5 DialogContent\cf0 \strokec4 >\cb1 \
+\cb3       </\cf5 \strokec5 Dialog\cf0 \strokec4 >\cb1 \
+\cb3     </div>\cb1 \
+\cb3   );\cb1 \
+\cb3 \}\cb1 \
+}

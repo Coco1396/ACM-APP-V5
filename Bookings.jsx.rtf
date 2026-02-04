@@ -1,0 +1,432 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue255;\red255\green255\blue254;\red0\green0\blue0;
+\red14\green110\blue109;\red144\green1\blue18;\red19\green118\blue70;\red15\green112\blue1;\red191\green28\blue37;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c100000;\cssrgb\c100000\c100000\c99608;\cssrgb\c0\c0\c0;
+\cssrgb\c0\c50196\c50196;\cssrgb\c63922\c8235\c8235;\cssrgb\c3529\c52549\c34510;\cssrgb\c0\c50196\c0;\cssrgb\c80392\c19216\c19216;
+}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 import\cf0 \strokec4  \cf5 \strokec5 React\cf0 \strokec4 , \{ useState, useEffect \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'react'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ motion \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'framer-motion'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ useQuery, useMutation, useQueryClient \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@tanstack/react-query'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ base44 \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/api/base44Client'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ format, addDays, startOfWeek, isSameDay, parseISO, isAfter, isBefore \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'date-fns'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ fr \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'date-fns/locale'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \cf5 \strokec5 Calendar\cf0 \strokec4  as \cf5 \strokec5 CalendarIcon\cf0 \strokec4 , \cf5 \strokec5 Clock\cf0 \strokec4 , \cf5 \strokec5 Users\cf0 \strokec4 , \cf5 \strokec5 ChevronLeft\cf0 \strokec4 , \cf5 \strokec5 ChevronRight\cf0 \strokec4 ,\cb1 \
+\cb3   \cf5 \strokec5 Check\cf0 \strokec4 , \cf5 \strokec5 X\cf0 \strokec4 , \cf5 \strokec5 Target\cf0 \strokec4 , \cf5 \strokec5 Info\cf0 \strokec4 , \cf5 \strokec5 Loader2\cf0 \cb1 \strokec4 \
+\cb3 \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'lucide-react'\cf0 \strokec4 ;\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Button\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/button'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Card\cf0 \strokec4 , \cf5 \strokec5 CardContent\cf0 \strokec4 , \cf5 \strokec5 CardHeader\cf0 \strokec4 , \cf5 \strokec5 CardTitle\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/card'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Input\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/input'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Label\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/label'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Textarea\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/textarea'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Select\cf0 \strokec4 , \cf5 \strokec5 SelectContent\cf0 \strokec4 , \cf5 \strokec5 SelectItem\cf0 \strokec4 , \cf5 \strokec5 SelectTrigger\cf0 \strokec4 , \cf5 \strokec5 SelectValue\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/select'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Dialog\cf0 \strokec4 , \cf5 \strokec5 DialogContent\cf0 \strokec4 , \cf5 \strokec5 DialogHeader\cf0 \strokec4 , \cf5 \strokec5 DialogTitle\cf0 \strokec4 , \cf5 \strokec5 DialogFooter\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/dialog'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ \cf5 \strokec5 Badge\cf0 \strokec4  \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 '@/components/ui/badge'\cf0 \strokec4 ;\cb1 \
+\cf2 \cb3 \strokec2 import\cf0 \strokec4  \{ toast \} \cf2 \strokec2 from\cf0 \strokec4  \cf6 \strokec6 'sonner'\cf0 \strokec4 ;\cb1 \
+\
+\cf2 \cb3 \strokec2 const\cf0 \strokec4  timeSlots = [\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \{ start: \cf6 \strokec6 '09:00'\cf0 \strokec4 , end: \cf6 \strokec6 '10:00'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ start: \cf6 \strokec6 '10:00'\cf0 \strokec4 , end: \cf6 \strokec6 '11:00'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ start: \cf6 \strokec6 '11:00'\cf0 \strokec4 , end: \cf6 \strokec6 '12:00'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ start: \cf6 \strokec6 '14:00'\cf0 \strokec4 , end: \cf6 \strokec6 '15:00'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ start: \cf6 \strokec6 '15:00'\cf0 \strokec4 , end: \cf6 \strokec6 '16:00'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ start: \cf6 \strokec6 '16:00'\cf0 \strokec4 , end: \cf6 \strokec6 '17:00'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ start: \cf6 \strokec6 '18:00'\cf0 \strokec4 , end: \cf6 \strokec6 '19:00'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ start: \cf6 \strokec6 '19:00'\cf0 \strokec4 , end: \cf6 \strokec6 '20:00'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ start: \cf6 \strokec6 '20:00'\cf0 \strokec4 , end: \cf6 \strokec6 '21:00'\cf0 \strokec4  \},\cb1 \
+\cb3 ];\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 const\cf0 \strokec4  activityTypes = [\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \{ id: \cf6 \strokec6 'entrainement_libre'\cf0 \strokec4 , label: \cf6 \strokec6 'Entra\'eenement libre'\cf0 \strokec4 , color: \cf6 \strokec6 'bg-blue-500'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf6 \strokec6 'cours_debutant'\cf0 \strokec4 , label: \cf6 \strokec6 'Cours d\'e9butant'\cf0 \strokec4 , color: \cf6 \strokec6 'bg-green-500'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf6 \strokec6 'cours_avance'\cf0 \strokec4 , label: \cf6 \strokec6 'Cours avanc\'e9'\cf0 \strokec4 , color: \cf6 \strokec6 'bg-purple-500'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf6 \strokec6 'initiation'\cf0 \strokec4 , label: \cf6 \strokec6 'Initiation'\cf0 \strokec4 , color: \cf6 \strokec6 'bg-yellow-500'\cf0 \strokec4  \},\cb1 \
+\cb3   \{ id: \cf6 \strokec6 'competition'\cf0 \strokec4 , label: \cf6 \strokec6 'Comp\'e9tition'\cf0 \strokec4 , color: \cf6 \strokec6 'bg-red-500'\cf0 \strokec4  \},\cb1 \
+\cb3 ];\cb1 \
+\
+\pard\pardeftab720\partightenfactor0
+\cf2 \cb3 \strokec2 export\cf0 \strokec4  \cf2 \strokec2 default\cf0 \strokec4  \cf2 \strokec2 function\cf0 \strokec4  \cf5 \strokec5 Bookings\cf0 \strokec4 () \{\cb1 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \cb3   \cf2 \strokec2 const\cf0 \strokec4  [currentWeekStart, setCurrentWeekStart] = useState(startOfWeek(\cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 (), \{ weekStartsOn: \cf7 \strokec7 1\cf0 \strokec4  \}));\cb1 \
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  [selectedSlot, setSelectedSlot] = useState(\cf2 \strokec2 null\cf0 \strokec4 );\cb1 \
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  [isDialogOpen, setIsDialogOpen] = useState(\cf2 \strokec2 false\cf0 \strokec4 );\cb1 \
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  [user, setUser] = useState(\cf2 \strokec2 null\cf0 \strokec4 );\cb1 \
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  [bookingForm, setBookingForm] = useState(\{\cb1 \
+\cb3     member_name: \cf6 \strokec6 ''\cf0 \strokec4 ,\cb1 \
+\cb3     member_email: \cf6 \strokec6 ''\cf0 \strokec4 ,\cb1 \
+\cb3     activity_type: \cf6 \strokec6 'entrainement_libre'\cf0 \strokec4 ,\cb1 \
+\cb3     participants: \cf7 \strokec7 1\cf0 \strokec4 ,\cb1 \
+\cb3     notes: \cf6 \strokec6 ''\cf0 \strokec4 ,\cb1 \
+\cb3   \});\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  queryClient = useQueryClient();\cb1 \
+\
+\cb3   useEffect(() => \{\cb1 \
+\cb3     \cf2 \strokec2 const\cf0 \strokec4  loadUser = \cf2 \strokec2 async\cf0 \strokec4  () => \{\cb1 \
+\cb3       \cf2 \strokec2 try\cf0 \strokec4  \{\cb1 \
+\cb3         \cf2 \strokec2 const\cf0 \strokec4  currentUser = \cf2 \strokec2 await\cf0 \strokec4  base44.auth.me();\cb1 \
+\cb3         setUser(currentUser);\cb1 \
+\cb3         setBookingForm(prev => (\{\cb1 \
+\cb3           ...prev,\cb1 \
+\cb3           member_name: currentUser.full_name || \cf6 \strokec6 ''\cf0 \strokec4 ,\cb1 \
+\cb3           member_email: currentUser.email || \cf6 \strokec6 ''\cf0 \strokec4 ,\cb1 \
+\cb3         \}));\cb1 \
+\cb3       \} \cf2 \strokec2 catch\cf0 \strokec4  \{\cb1 \
+\cb3         setUser(\cf2 \strokec2 null\cf0 \strokec4 );\cb1 \
+\cb3       \}\cb1 \
+\cb3     \};\cb1 \
+\cb3     loadUser();\cb1 \
+\cb3   \}, []);\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  \{ data: bookings, isLoading \} = useQuery(\{\cb1 \
+\cb3     queryKey: [\cf6 \strokec6 'bookings'\cf0 \strokec4 ],\cb1 \
+\cb3     queryFn: () => base44.entities.\cf5 \strokec5 Booking\cf0 \strokec4 .list(),\cb1 \
+\cb3     initialData: [],\cb1 \
+\cb3   \});\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  createBookingMutation = useMutation(\{\cb1 \
+\cb3     mutationFn: (data) => base44.entities.\cf5 \strokec5 Booking\cf0 \strokec4 .create(data),\cb1 \
+\cb3     onSuccess: () => \{\cb1 \
+\cb3       queryClient.invalidateQueries(\{ queryKey: [\cf6 \strokec6 'bookings'\cf0 \strokec4 ] \});\cb1 \
+\cb3       toast.success(\cf6 \strokec6 'R\'e9servation confirm\'e9e !'\cf0 \strokec4 );\cb1 \
+\cb3       setIsDialogOpen(\cf2 \strokec2 false\cf0 \strokec4 );\cb1 \
+\cb3       setSelectedSlot(\cf2 \strokec2 null\cf0 \strokec4 );\cb1 \
+\cb3     \},\cb1 \
+\cb3     onError: () => \{\cb1 \
+\cb3       toast.error(\cf6 \strokec6 'Erreur lors de la r\'e9servation'\cf0 \strokec4 );\cb1 \
+\cb3     \},\cb1 \
+\cb3   \});\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  weekDays = [...\cf5 \strokec5 Array\cf0 \strokec4 (\cf7 \strokec7 7\cf0 \strokec4 )].map((_, i) => addDays(currentWeekStart, i));\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  getSlotBookings = (date, slot) => \{\cb1 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  bookings.filter(b => \cb1 \
+\cb3       b.date === format(date, \cf6 \strokec6 'yyyy-MM-dd'\cf0 \strokec4 ) && \cb1 \
+\cb3       b.time_slot === \cf6 \strokec6 `\cf0 \strokec4 $\{slot.start\}\cf6 \strokec6 -\cf0 \strokec4 $\{slot.end\}\cf6 \strokec6 `\cf0 \strokec4  &&\cb1 \
+\cb3       b.status !== \cf6 \strokec6 'cancelled'\cf0 \cb1 \strokec4 \
+\cb3     );\cb1 \
+\cb3   \};\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  getSlotAvailability = (date, slot) => \{\cb1 \
+\cb3     \cf2 \strokec2 const\cf0 \strokec4  slotBookings = getSlotBookings(date, slot);\cb1 \
+\cb3     \cf2 \strokec2 const\cf0 \strokec4  totalParticipants = slotBookings.reduce((sum, b) => sum + (b.participants || \cf7 \strokec7 1\cf0 \strokec4 ), \cf7 \strokec7 0\cf0 \strokec4 );\cb1 \
+\cb3     \cf2 \strokec2 const\cf0 \strokec4  maxCapacity = \cf7 \strokec7 8\cf0 \strokec4 ;\cb1 \
+\cb3     \cf2 \strokec2 return\cf0 \strokec4  \{ available: maxCapacity - totalParticipants, total: maxCapacity, bookings: slotBookings \};\cb1 \
+\cb3   \};\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  handleSlotClick = (date, slot) => \{\cb1 \
+\cb3     \cf2 \strokec2 const\cf0 \strokec4  availability = getSlotAvailability(date, slot);\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  (availability.available <= \cf7 \strokec7 0\cf0 \strokec4 ) \cf2 \strokec2 return\cf0 \strokec4 ;\cb1 \
+\cb3     \cb1 \
+\cb3     setSelectedSlot(\{ date, slot, availability \});\cb1 \
+\cb3     setIsDialogOpen(\cf2 \strokec2 true\cf0 \strokec4 );\cb1 \
+\cb3   \};\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  handleBooking = () => \{\cb1 \
+\cb3     \cf2 \strokec2 if\cf0 \strokec4  (!bookingForm.member_email) \{\cb1 \
+\cb3       toast.error(\cf6 \strokec6 'Veuillez entrer votre email'\cf0 \strokec4 );\cb1 \
+\cb3       \cf2 \strokec2 return\cf0 \strokec4 ;\cb1 \
+\cb3     \}\cb1 \
+\
+\cb3     createBookingMutation.mutate(\{\cb1 \
+\cb3       ...bookingForm,\cb1 \
+\cb3       date: format(selectedSlot.date, \cf6 \strokec6 'yyyy-MM-dd'\cf0 \strokec4 ),\cb1 \
+\cb3       time_slot: \cf6 \strokec6 `\cf0 \strokec4 $\{selectedSlot.slot.start\}\cf6 \strokec6 -\cf0 \strokec4 $\{selectedSlot.slot.end\}\cf6 \strokec6 `\cf0 \strokec4 ,\cb1 \
+\cb3       status: \cf6 \strokec6 'confirmed'\cf0 \strokec4 ,\cb1 \
+\cb3     \});\cb1 \
+\cb3   \};\cb1 \
+\
+\cb3   \cf2 \strokec2 const\cf0 \strokec4  isPastDate = (date) => isBefore(date, \cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 ()) && !isSameDay(date, \cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 ());\cb1 \
+\
+\cb3   \cf2 \strokec2 return\cf0 \strokec4  (\cb1 \
+\cb3     <div className=\cf6 \strokec6 "bg-black min-h-screen pt-20"\cf0 \strokec4 >\cb1 \
+\cb3       \{\cf8 \strokec8 /* Hero */\cf0 \strokec4 \}\cb1 \
+\cb3       <section className=\cf6 \strokec6 "py-16 md:py-20"\cf0 \strokec4 >\cb1 \
+\cb3         <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec4 >\cb1 \
+\cb3           <motion.div\cb1 \
+\cb3             initial=\{\{ opacity: \cf7 \strokec7 0\cf0 \strokec4 , y: \cf7 \strokec7 20\cf0 \strokec4  \}\}\cb1 \
+\cb3             animate=\{\{ opacity: \cf7 \strokec7 1\cf0 \strokec4 , y: \cf7 \strokec7 0\cf0 \strokec4  \}\}\cb1 \
+\cb3             className=\cf6 \strokec6 "text-center"\cf0 \cb1 \strokec4 \
+\cb3           >\cb1 \
+\cb3             <span className=\cf6 \strokec6 "inline-flex items-center gap-2 bg-red-600/10 border border-red-600/30 rounded-full px-4 py-2 mb-6"\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 CalendarIcon\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 text-red-500"\cf0 \strokec4  />\cb1 \
+\cb3               <span className=\cf6 \strokec6 "text-red-400 text-sm font-medium"\cf0 \strokec4 >\cf5 \strokec5 R\cf9 \strokec9 \'e9\cf0 \strokec4 servations</span>\cb1 \
+\cb3             </span>\cb1 \
+\cb3             <h1 className=\cf6 \strokec6 "text-4xl md:text-6xl font-bold text-white mb-6"\cf0 \strokec4 >\cb1 \
+\cb3               \cf5 \strokec5 R\cf9 \strokec9 \'e9\cf0 \strokec4 servez votre<br />\cb1 \
+\cb3               <span className=\cf6 \strokec6 "text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-700"\cf0 \strokec4 >\cb1 \
+\cb3                 cr\cf9 \strokec9 \'e9\cf0 \strokec4 neau\cb1 \
+\cb3               </span>\cb1 \
+\cb3             </h1>\cb1 \
+\cb3             <p className=\cf6 \strokec6 "text-xl text-gray-400 max-w-2xl mx-auto"\cf0 \strokec4 >\cb1 \
+\cb3               \cf5 \strokec5 Choisissez\cf0 \strokec4  votre cr\cf9 \strokec9 \'e9\cf0 \strokec4 neau et r\cf9 \strokec9 \'e9\cf0 \strokec4 servez en ligne. \cf5 \strokec5 Confirmez\cf0 \strokec4  votre pr\cf9 \strokec9 \'e9\cf0 \strokec4 sence en quelques clics.\cb1 \
+\cb3             </p>\cb1 \
+\cb3           </motion.div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf8 \strokec8 /* Calendar */\cf0 \strokec4 \}\cb1 \
+\cb3       <section className=\cf6 \strokec6 "pb-24"\cf0 \strokec4 >\cb1 \
+\cb3         <div className=\cf6 \strokec6 "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"\cf0 \strokec4 >\cb1 \
+\cb3           <\cf5 \strokec5 Card\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-900 border-zinc-800"\cf0 \strokec4 >\cb1 \
+\cb3             <\cf5 \strokec5 CardHeader\cf0 \strokec4  className=\cf6 \strokec6 "border-b border-zinc-800"\cf0 \strokec4 >\cb1 \
+\cb3               <div className=\cf6 \strokec6 "flex flex-col sm:flex-row sm:items-center justify-between gap-4"\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 CardTitle\cf0 \strokec4  className=\cf6 \strokec6 "text-white flex items-center gap-2"\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 CalendarIcon\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5 text-red-500"\cf0 \strokec4  />\cb1 \
+\cb3                   \cf5 \strokec5 Calendrier\cf0 \strokec4  des disponibilit\cf9 \strokec9 \'e9\cf0 \strokec4 s\cb1 \
+\cb3                 </\cf5 \strokec5 CardTitle\cf0 \strokec4 >\cb1 \
+\cb3                 <div className=\cf6 \strokec6 "flex items-center gap-2"\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 Button\cf0 \cb1 \strokec4 \
+\cb3                     variant=\cf6 \strokec6 "outline"\cf0 \cb1 \strokec4 \
+\cb3                     size=\cf6 \strokec6 "icon"\cf0 \cb1 \strokec4 \
+\cb3                     onClick=\{() => setCurrentWeekStart(addDays(currentWeekStart, -\cf7 \strokec7 7\cf0 \strokec4 ))\}\cb1 \
+\cb3                     className=\cf6 \strokec6 "border-zinc-700 text-gray-400 hover:text-white"\cf0 \cb1 \strokec4 \
+\cb3                   >\cb1 \
+\cb3                     <\cf5 \strokec5 ChevronLeft\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5"\cf0 \strokec4  />\cb1 \
+\cb3                   </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3                   <span className=\cf6 \strokec6 "text-white font-medium px-4"\cf0 \strokec4 >\cb1 \
+\cb3                     \{format(currentWeekStart, \cf6 \strokec6 'd MMM'\cf0 \strokec4 , \{ locale: fr \})\} - \{format(addDays(currentWeekStart, \cf7 \strokec7 6\cf0 \strokec4 ), \cf6 \strokec6 'd MMM yyyy'\cf0 \strokec4 , \{ locale: fr \})\}\cb1 \
+\cb3                   </span>\cb1 \
+\cb3                   <\cf5 \strokec5 Button\cf0 \cb1 \strokec4 \
+\cb3                     variant=\cf6 \strokec6 "outline"\cf0 \cb1 \strokec4 \
+\cb3                     size=\cf6 \strokec6 "icon"\cf0 \cb1 \strokec4 \
+\cb3                     onClick=\{() => setCurrentWeekStart(addDays(currentWeekStart, \cf7 \strokec7 7\cf0 \strokec4 ))\}\cb1 \
+\cb3                     className=\cf6 \strokec6 "border-zinc-700 text-gray-400 hover:text-white"\cf0 \cb1 \strokec4 \
+\cb3                   >\cb1 \
+\cb3                     <\cf5 \strokec5 ChevronRight\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5"\cf0 \strokec4  />\cb1 \
+\cb3                   </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3                 </div>\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </\cf5 \strokec5 CardHeader\cf0 \strokec4 >\cb1 \
+\cb3             <\cf5 \strokec5 CardContent\cf0 \strokec4  className=\cf6 \strokec6 "p-0 overflow-x-auto"\cf0 \strokec4 >\cb1 \
+\cb3               <div className=\cf6 \strokec6 "min-w-[800px]"\cf0 \strokec4 >\cb1 \
+\cb3                 \{\cf8 \strokec8 /* Header */\cf0 \strokec4 \}\cb1 \
+\cb3                 <div className=\cf6 \strokec6 "grid grid-cols-8 border-b border-zinc-800"\cf0 \strokec4 >\cb1 \
+\cb3                   <div className=\cf6 \strokec6 "p-4 text-gray-500 text-sm font-medium"\cf0 \strokec4 >\cf5 \strokec5 Horaire\cf0 \strokec4 </div>\cb1 \
+\cb3                   \{weekDays.map((day, i) => (\cb1 \
+\cb3                     <div \cb1 \
+\cb3                       key=\{i\} \cb1 \
+\cb3                       className=\{\cf6 \strokec6 `p-4 text-center border-l border-zinc-800 \cf0 \strokec4 $\{\cb1 \
+\cb3                         isSameDay(day, \cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 ()) ? \cf6 \strokec6 'bg-red-600/10'\cf0 \strokec4  : \cf6 \strokec6 ''\cf0 \cb1 \strokec4 \
+\cb3                       \}\cf6 \strokec6 `\cf0 \strokec4 \}\cb1 \
+\cb3                     >\cb1 \
+\cb3                       <div className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\{format(day, \cf6 \strokec6 'EEE'\cf0 \strokec4 , \{ locale: fr \})\}</div>\cb1 \
+\cb3                       <div className=\{\cf6 \strokec6 `text-lg font-semibold \cf0 \strokec4 $\{\cb1 \
+\cb3                         isSameDay(day, \cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 ()) ? \cf6 \strokec6 'text-red-500'\cf0 \strokec4  : \cf6 \strokec6 'text-white'\cf0 \cb1 \strokec4 \
+\cb3                       \}\cf6 \strokec6 `\cf0 \strokec4 \}>\cb1 \
+\cb3                         \{format(day, \cf6 \strokec6 'd'\cf0 \strokec4 )\}\cb1 \
+\cb3                       </div>\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                   ))\}\cb1 \
+\cb3                 </div>\cb1 \
+\
+\cb3                 \{\cf8 \strokec8 /* Time slots */\cf0 \strokec4 \}\cb1 \
+\cb3                 \{timeSlots.map((slot, slotIndex) => (\cb1 \
+\cb3                   <div key=\{slotIndex\} className=\cf6 \strokec6 "grid grid-cols-8 border-b border-zinc-800 last:border-b-0"\cf0 \strokec4 >\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "p-4 text-gray-400 text-sm flex items-center"\cf0 \strokec4 >\cb1 \
+\cb3                       <\cf5 \strokec5 Clock\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-2"\cf0 \strokec4  />\cb1 \
+\cb3                       \{slot.start\}\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                     \{weekDays.map((day, dayIndex) => \{\cb1 \
+\cb3                       \cf2 \strokec2 const\cf0 \strokec4  availability = getSlotAvailability(day, slot);\cb1 \
+\cb3                       \cf2 \strokec2 const\cf0 \strokec4  isPast = isPastDate(day);\cb1 \
+\cb3                       \cf2 \strokec2 const\cf0 \strokec4  isFull = availability.available <= \cf7 \strokec7 0\cf0 \strokec4 ;\cb1 \
+\cb3                       \cb1 \
+\cb3                       \cf2 \strokec2 return\cf0 \strokec4  (\cb1 \
+\cb3                         <div\cb1 \
+\cb3                           key=\{dayIndex\}\cb1 \
+\cb3                           onClick=\{() => !isPast && !isFull && handleSlotClick(day, slot)\}\cb1 \
+\cb3                           className=\{\cf6 \strokec6 `p-2 border-l border-zinc-800 min-h-[80px] transition-all \cf0 \strokec4 $\{\cb1 \
+\cb3                             isPast \cb1 \
+\cb3                               ? \cf6 \strokec6 'bg-zinc-900/50 cursor-not-allowed'\cf0 \strokec4  \cb1 \
+\cb3                               : isFull \cb1 \
+\cb3                                 ? \cf6 \strokec6 'bg-red-900/20 cursor-not-allowed'\cf0 \cb1 \strokec4 \
+\cb3                                 : \cf6 \strokec6 'hover:bg-zinc-800 cursor-pointer'\cf0 \cb1 \strokec4 \
+\cb3                           \}\cf6 \strokec6  \cf0 \strokec4 $\{isSameDay(day, \cf2 \strokec2 new\cf0 \strokec4  \cf5 \strokec5 Date\cf0 \strokec4 ()) ? \cf6 \strokec6 'bg-red-600/5'\cf0 \strokec4  : \cf6 \strokec6 ''\cf0 \strokec4 \}\cf6 \strokec6 `\cf0 \strokec4 \}\cb1 \
+\cb3                         >\cb1 \
+\cb3                           \{!isPast && (\cb1 \
+\cb3                             <div className=\cf6 \strokec6 "h-full flex flex-col justify-between"\cf0 \strokec4 >\cb1 \
+\cb3                               <div className=\cf6 \strokec6 "flex flex-wrap gap-1"\cf0 \strokec4 >\cb1 \
+\cb3                                 \{availability.bookings.slice(\cf7 \strokec7 0\cf0 \strokec4 , \cf7 \strokec7 2\cf0 \strokec4 ).map((b, i) => (\cb1 \
+\cb3                                   <\cf5 \strokec5 Badge\cf0 \strokec4  \cb1 \
+\cb3                                     key=\{i\} \cb1 \
+\cb3                                     className=\{\cf6 \strokec6 `text-xs \cf0 \strokec4 $\{\cb1 \
+\cb3                                       activityTypes.find(t => t.id === b.activity_type)?.color || \cf6 \strokec6 'bg-zinc-600'\cf0 \cb1 \strokec4 \
+\cb3                                     \}\cf6 \strokec6 `\cf0 \strokec4 \}\cb1 \
+\cb3                                   >\cb1 \
+\cb3                                     \{b.participants || \cf7 \strokec7 1\cf0 \strokec4 \}\cb1 \
+\cb3                                   </\cf5 \strokec5 Badge\cf0 \strokec4 >\cb1 \
+\cb3                                 ))\}\cb1 \
+\cb3                                 \{availability.bookings.length > \cf7 \strokec7 2\cf0 \strokec4  && (\cb1 \
+\cb3                                   <\cf5 \strokec5 Badge\cf0 \strokec4  className=\cf6 \strokec6 "text-xs bg-zinc-700"\cf0 \strokec4 >+\{availability.bookings.length - \cf7 \strokec7 2\cf0 \strokec4 \}</\cf5 \strokec5 Badge\cf0 \strokec4 >\cb1 \
+\cb3                                 )\}\cb1 \
+\cb3                               </div>\cb1 \
+\cb3                               <div className=\{\cf6 \strokec6 `text-xs \cf0 \strokec4 $\{isFull ? \cf6 \strokec6 'text-red-400'\cf0 \strokec4  : \cf6 \strokec6 'text-green-400'\cf0 \strokec4 \}\cf6 \strokec6 `\cf0 \strokec4 \}>\cb1 \
+\cb3                                 \{isFull ? \cf6 \strokec6 'Complet'\cf0 \strokec4  : \cf6 \strokec6 `\cf0 \strokec4 $\{availability.available\}\cf6 \strokec6  place\cf0 \strokec4 $\{availability.available > \cf7 \strokec7 1\cf0 \strokec4  ? \cf6 \strokec6 's'\cf0 \strokec4  : \cf6 \strokec6 ''\cf0 \strokec4 \}\cf6 \strokec6 `\cf0 \strokec4 \}\cb1 \
+\cb3                               </div>\cb1 \
+\cb3                             </div>\cb1 \
+\cb3                           )\}\cb1 \
+\cb3                         </div>\cb1 \
+\cb3                       );\cb1 \
+\cb3                     \})\}\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                 ))\}\cb1 \
+\cb3               </div>\cb1 \
+\cb3             </\cf5 \strokec5 CardContent\cf0 \strokec4 >\cb1 \
+\cb3           </\cf5 \strokec5 Card\cf0 \strokec4 >\cb1 \
+\
+\cb3           \{\cf8 \strokec8 /* Legend */\cf0 \strokec4 \}\cb1 \
+\cb3           <div className=\cf6 \strokec6 "mt-6 flex flex-wrap gap-4 justify-center"\cf0 \strokec4 >\cb1 \
+\cb3             \{activityTypes.map((type) => (\cb1 \
+\cb3               <div key=\{type.id\} className=\cf6 \strokec6 "flex items-center gap-2"\cf0 \strokec4 >\cb1 \
+\cb3                 <div className=\{\cf6 \strokec6 `w-3 h-3 rounded-full \cf0 \strokec4 $\{type.color\}\cf6 \strokec6 `\cf0 \strokec4 \} />\cb1 \
+\cb3                 <span className=\cf6 \strokec6 "text-gray-400 text-sm"\cf0 \strokec4 >\{type.label\}</span>\cb1 \
+\cb3               </div>\cb1 \
+\cb3             ))\}\cb1 \
+\cb3           </div>\cb1 \
+\cb3         </div>\cb1 \
+\cb3       </section>\cb1 \
+\
+\cb3       \{\cf8 \strokec8 /* Booking Dialog */\cf0 \strokec4 \}\cb1 \
+\cb3       <\cf5 \strokec5 Dialog\cf0 \strokec4  open=\{isDialogOpen\} onOpenChange=\{setIsDialogOpen\}>\cb1 \
+\cb3         <\cf5 \strokec5 DialogContent\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-900 border-zinc-800 text-white max-w-md"\cf0 \strokec4 >\cb1 \
+\cb3           <\cf5 \strokec5 DialogHeader\cf0 \strokec4 >\cb1 \
+\cb3             <\cf5 \strokec5 DialogTitle\cf0 \strokec4  className=\cf6 \strokec6 "text-xl flex items-center gap-2"\cf0 \strokec4 >\cb1 \
+\cb3               <\cf5 \strokec5 Target\cf0 \strokec4  className=\cf6 \strokec6 "w-5 h-5 text-red-500"\cf0 \strokec4  />\cb1 \
+\cb3               \cf5 \strokec5 R\cf9 \strokec9 \'e9\cf0 \strokec4 server un cr\cf9 \strokec9 \'e9\cf0 \strokec4 neau\cb1 \
+\cb3             </\cf5 \strokec5 DialogTitle\cf0 \strokec4 >\cb1 \
+\cb3           </\cf5 \strokec5 DialogHeader\cf0 \strokec4 >\cb1 \
+\cb3           \cb1 \
+\cb3           \{selectedSlot && (\cb1 \
+\cb3             <div className=\cf6 \strokec6 "space-y-6"\cf0 \strokec4 >\cb1 \
+\cb3               \{\cf8 \strokec8 /* Slot info */\cf0 \strokec4 \}\cb1 \
+\cb3               <div className=\cf6 \strokec6 "bg-zinc-800/50 rounded-xl p-4"\cf0 \strokec4 >\cb1 \
+\cb3                 <div className=\cf6 \strokec6 "flex items-center justify-between"\cf0 \strokec4 >\cb1 \
+\cb3                   <div>\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "text-white font-medium"\cf0 \strokec4 >\cb1 \
+\cb3                       \{format(selectedSlot.date, \cf6 \strokec6 'EEEE d MMMM'\cf0 \strokec4 , \{ locale: fr \})\}\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                     <div className=\cf6 \strokec6 "text-gray-400"\cf0 \strokec4 >\cb1 \
+\cb3                       \{selectedSlot.slot.start\} - \{selectedSlot.slot.end\}\cb1 \
+\cb3                     </div>\cb1 \
+\cb3                   </div>\cb1 \
+\cb3                   <\cf5 \strokec5 Badge\cf0 \strokec4  className=\cf6 \strokec6 "bg-green-600"\cf0 \strokec4 >\cb1 \
+\cb3                     \{selectedSlot.availability.available\} place\{selectedSlot.availability.available > \cf7 \strokec7 1\cf0 \strokec4  ? \cf6 \strokec6 's'\cf0 \strokec4  : \cf6 \strokec6 ''\cf0 \strokec4 \}\cb1 \
+\cb3                   </\cf5 \strokec5 Badge\cf0 \strokec4 >\cb1 \
+\cb3                 </div>\cb1 \
+\cb3               </div>\cb1 \
+\
+\cb3               \{\cf8 \strokec8 /* Form */\cf0 \strokec4 \}\cb1 \
+\cb3               <div className=\cf6 \strokec6 "space-y-4"\cf0 \strokec4 >\cb1 \
+\cb3                 <div>\cb1 \
+\cb3                   <\cf5 \strokec5 Label\cf0 \strokec4  className=\cf6 \strokec6 "text-gray-300"\cf0 \strokec4 >\cf5 \strokec5 Nom\cf0 \strokec4  complet</\cf5 \strokec5 Label\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 Input\cf0 \cb1 \strokec4 \
+\cb3                     value=\{bookingForm.member_name\}\cb1 \
+\cb3                     onChange=\{(e) => setBookingForm(\{ ...bookingForm, member_name: e.target.value \})\}\cb1 \
+\cb3                     className=\cf6 \strokec6 "bg-zinc-800 border-zinc-700 text-white mt-1"\cf0 \cb1 \strokec4 \
+\cb3                     placeholder=\cf6 \strokec6 "Votre nom"\cf0 \cb1 \strokec4 \
+\cb3                   />\cb1 \
+\cb3                 </div>\cb1 \
+\
+\cb3                 <div>\cb1 \
+\cb3                   <\cf5 \strokec5 Label\cf0 \strokec4  className=\cf6 \strokec6 "text-gray-300"\cf0 \strokec4 >\cf5 \strokec5 Email\cf0 \strokec4 </\cf5 \strokec5 Label\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 Input\cf0 \cb1 \strokec4 \
+\cb3                     type=\cf6 \strokec6 "email"\cf0 \cb1 \strokec4 \
+\cb3                     value=\{bookingForm.member_email\}\cb1 \
+\cb3                     onChange=\{(e) => setBookingForm(\{ ...bookingForm, member_email: e.target.value \})\}\cb1 \
+\cb3                     className=\cf6 \strokec6 "bg-zinc-800 border-zinc-700 text-white mt-1"\cf0 \cb1 \strokec4 \
+\cb3                     placeholder=\cf6 \strokec6 "votre@email.ch"\cf0 \cb1 \strokec4 \
+\cb3                   />\cb1 \
+\cb3                 </div>\cb1 \
+\
+\cb3                 <div>\cb1 \
+\cb3                   <\cf5 \strokec5 Label\cf0 \strokec4  className=\cf6 \strokec6 "text-gray-300"\cf0 \strokec4 >\cf5 \strokec5 Type\cf0 \strokec4  d\cf6 \strokec6 'activit\'e9</Label>\cf0 \cb1 \strokec4 \
+\cb3                   <\cf5 \strokec5 Select\cf0 \cb1 \strokec4 \
+\cb3                     value=\{bookingForm.activity_type\}\cb1 \
+\cb3                     onValueChange=\{(v) => setBookingForm(\{ ...bookingForm, activity_type: v \})\}\cb1 \
+\cb3                   >\cb1 \
+\cb3                     <\cf5 \strokec5 SelectTrigger\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-800 border-zinc-700 text-white mt-1"\cf0 \strokec4 >\cb1 \
+\cb3                       <\cf5 \strokec5 SelectValue\cf0 \strokec4  />\cb1 \
+\cb3                     </\cf5 \strokec5 SelectTrigger\cf0 \strokec4 >\cb1 \
+\cb3                     <\cf5 \strokec5 SelectContent\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-800 border-zinc-700"\cf0 \strokec4 >\cb1 \
+\cb3                       \{activityTypes.map((type) => (\cb1 \
+\cb3                         <\cf5 \strokec5 SelectItem\cf0 \strokec4  key=\{type.id\} value=\{type.id\} className=\cf6 \strokec6 "text-white"\cf0 \strokec4 >\cb1 \
+\cb3                           \{type.label\}\cb1 \
+\cb3                         </\cf5 \strokec5 SelectItem\cf0 \strokec4 >\cb1 \
+\cb3                       ))\}\cb1 \
+\cb3                     </\cf5 \strokec5 SelectContent\cf0 \strokec4 >\cb1 \
+\cb3                   </\cf5 \strokec5 Select\cf0 \strokec4 >\cb1 \
+\cb3                 </div>\cb1 \
+\
+\cb3                 <div>\cb1 \
+\cb3                   <\cf5 \strokec5 Label\cf0 \strokec4  className=\cf6 \strokec6 "text-gray-300"\cf0 \strokec4 >\cf5 \strokec5 Nombre\cf0 \strokec4  de participants</\cf5 \strokec5 Label\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 Select\cf0 \cb1 \strokec4 \
+\cb3                     value=\{\cf5 \strokec5 String\cf0 \strokec4 (bookingForm.participants)\}\cb1 \
+\cb3                     onValueChange=\{(v) => setBookingForm(\{ ...bookingForm, participants: parseInt(v) \})\}\cb1 \
+\cb3                   >\cb1 \
+\cb3                     <\cf5 \strokec5 SelectTrigger\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-800 border-zinc-700 text-white mt-1"\cf0 \strokec4 >\cb1 \
+\cb3                       <\cf5 \strokec5 SelectValue\cf0 \strokec4  />\cb1 \
+\cb3                     </\cf5 \strokec5 SelectTrigger\cf0 \strokec4 >\cb1 \
+\cb3                     <\cf5 \strokec5 SelectContent\cf0 \strokec4  className=\cf6 \strokec6 "bg-zinc-800 border-zinc-700"\cf0 \strokec4 >\cb1 \
+\cb3                       \{[...\cf5 \strokec5 Array\cf0 \strokec4 (\cf5 \strokec5 Math\cf0 \strokec4 .min(selectedSlot.availability.available, \cf7 \strokec7 4\cf0 \strokec4 ))].map((_, i) => (\cb1 \
+\cb3                         <\cf5 \strokec5 SelectItem\cf0 \strokec4  key=\{i + \cf7 \strokec7 1\cf0 \strokec4 \} value=\{\cf5 \strokec5 String\cf0 \strokec4 (i + \cf7 \strokec7 1\cf0 \strokec4 )\} className=\cf6 \strokec6 "text-white"\cf0 \strokec4 >\cb1 \
+\cb3                           \{i + \cf7 \strokec7 1\cf0 \strokec4 \} personne\{i > \cf7 \strokec7 0\cf0 \strokec4  ? \cf6 \strokec6 's'\cf0 \strokec4  : \cf6 \strokec6 ''\cf0 \strokec4 \}\cb1 \
+\cb3                         </\cf5 \strokec5 SelectItem\cf0 \strokec4 >\cb1 \
+\cb3                       ))\}\cb1 \
+\cb3                     </\cf5 \strokec5 SelectContent\cf0 \strokec4 >\cb1 \
+\cb3                   </\cf5 \strokec5 Select\cf0 \strokec4 >\cb1 \
+\cb3                 </div>\cb1 \
+\
+\cb3                 <div>\cb1 \
+\cb3                   <\cf5 \strokec5 Label\cf0 \strokec4  className=\cf6 \strokec6 "text-gray-300"\cf0 \strokec4 >\cf5 \strokec5 Notes\cf0 \strokec4  (optionnel)</\cf5 \strokec5 Label\cf0 \strokec4 >\cb1 \
+\cb3                   <\cf5 \strokec5 Textarea\cf0 \cb1 \strokec4 \
+\cb3                     value=\{bookingForm.notes\}\cb1 \
+\cb3                     onChange=\{(e) => setBookingForm(\{ ...bookingForm, notes: e.target.value \})\}\cb1 \
+\cb3                     className=\cf6 \strokec6 "bg-zinc-800 border-zinc-700 text-white mt-1"\cf0 \cb1 \strokec4 \
+\cb3                     placeholder=\cf6 \strokec6 "Informations suppl\'e9mentaires..."\cf0 \cb1 \strokec4 \
+\cb3                     rows=\{\cf7 \strokec7 3\cf0 \strokec4 \}\cb1 \
+\cb3                   />\cb1 \
+\cb3                 </div>\cb1 \
+\cb3               </div>\cb1 \
+\
+\cb3               <\cf5 \strokec5 DialogFooter\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 Button\cf0 \cb1 \strokec4 \
+\cb3                   variant=\cf6 \strokec6 "outline"\cf0 \cb1 \strokec4 \
+\cb3                   onClick=\{() => setIsDialogOpen(\cf2 \strokec2 false\cf0 \strokec4 )\}\cb1 \
+\cb3                   className=\cf6 \strokec6 "border-zinc-700 text-gray-400 hover:text-white"\cf0 \cb1 \strokec4 \
+\cb3                 >\cb1 \
+\cb3                   \cf5 \strokec5 Annuler\cf0 \cb1 \strokec4 \
+\cb3                 </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3                 <\cf5 \strokec5 Button\cf0 \cb1 \strokec4 \
+\cb3                   onClick=\{handleBooking\}\cb1 \
+\cb3                   disabled=\{createBookingMutation.isPending\}\cb1 \
+\cb3                   className=\cf6 \strokec6 "bg-red-600 hover:bg-red-700"\cf0 \cb1 \strokec4 \
+\cb3                 >\cb1 \
+\cb3                   \{createBookingMutation.isPending ? (\cb1 \
+\cb3                     <\cf5 \strokec5 Loader2\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-2 animate-spin"\cf0 \strokec4  />\cb1 \
+\cb3                   ) : (\cb1 \
+\cb3                     <\cf5 \strokec5 Check\cf0 \strokec4  className=\cf6 \strokec6 "w-4 h-4 mr-2"\cf0 \strokec4  />\cb1 \
+\cb3                   )\}\cb1 \
+\cb3                   \cf5 \strokec5 Confirmer\cf0 \cb1 \strokec4 \
+\cb3                 </\cf5 \strokec5 Button\cf0 \strokec4 >\cb1 \
+\cb3               </\cf5 \strokec5 DialogFooter\cf0 \strokec4 >\cb1 \
+\cb3             </div>\cb1 \
+\cb3           )\}\cb1 \
+\cb3         </\cf5 \strokec5 DialogContent\cf0 \strokec4 >\cb1 \
+\cb3       </\cf5 \strokec5 Dialog\cf0 \strokec4 >\cb1 \
+\cb3     </div>\cb1 \
+\cb3   );\cb1 \
+\cb3 \}\cb1 \
+}
